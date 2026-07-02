@@ -1,0 +1,101 @@
+/* Navy footer band — brand colours via tokens, AA text on navy. */
+.footer {
+  background: var(--grad-brand);
+  color: var(--color-text-invert);
+  --icon-accent: #ffb14d; /* keep duotone glyphs visible on navy */
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: var(--space-7);
+  padding-block: var(--space-9) var(--space-7);
+}
+
+.brandCol {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+.blurb {
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-small);
+  max-width: 42ch;
+}
+.tagline {
+  color: var(--amber-500);
+  font-family: var(--font-display-stack);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+}
+
+.col {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+.colTitle {
+  color: #fff;
+  font-size: var(--fs-h6);
+  font-weight: 700;
+}
+.list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.contactLink,
+.navLink,
+.contactLine {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-small);
+  text-decoration: none;
+}
+.contactLink:hover,
+.navLink:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.note {
+  color: var(--neutral-300);
+  font-size: var(--fs-caption);
+  font-style: italic;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--hairline-light);
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-small);
+}
+.bottomLinks {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.bottomLink {
+  color: var(--color-text-invert-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.bottomLink:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .top {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding-block: var(--space-7) var(--space-5);
+  }
+}

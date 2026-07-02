@@ -1,0 +1,322 @@
+.section {
+  background: var(--color-bg-alt);
+}
+
+.head {
+  max-width: var(--container-narrow);
+  margin-bottom: var(--space-7);
+}
+
+.title {
+  font-size: var(--fs-h2);
+  margin-top: var(--space-2);
+}
+
+.lead {
+  margin-top: var(--space-3);
+  font-size: var(--fs-body-lg);
+  color: var(--color-text-muted);
+}
+
+/* Drawing + detail panel side by side; stacks on narrow screens. */
+.layout {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.figureWrap {
+  min-width: 0;
+}
+
+.figure {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #f7f4ec;
+  box-shadow: var(--shadow-sm);
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---- Drawing line-work (navy tokens; material fills stay literal) ---- */
+.stroke {
+  fill: none;
+  stroke: var(--navy-700);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.thin {
+  fill: none;
+  stroke: var(--navy-700);
+  stroke-width: 1.2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.amberThin {
+  fill: none;
+  stroke: var(--amber-500);
+  stroke-width: 2px;
+  stroke-linecap: round;
+}
+
+.dimExt {
+  stroke: rgba(27, 44, 122, 0.35);
+  stroke-width: 1px;
+  stroke-dasharray: 3 3;
+}
+
+.dimText {
+  fill: var(--navy-900);
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.sideLabel {
+  fill: var(--navy-700);
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.svgNote {
+  fill: var(--amber-700);
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* ---- Amber highlight overlay (slides to the active band) ---- */
+.highlight {
+  fill: rgba(247, 148, 29, 0.18);
+  stroke: var(--amber-500);
+  stroke-width: 2.5px;
+  pointer-events: none;
+  transition:
+    x var(--dur-base) var(--ease-standard),
+    width var(--dur-base) var(--ease-standard);
+}
+
+/* ---- Transparent hit areas ---- */
+.hit {
+  fill: transparent;
+  cursor: pointer;
+  transition: fill var(--dur-fast) var(--ease-out);
+}
+
+.hit:hover {
+  fill: rgba(247, 148, 29, 0.1);
+}
+
+/* ---- Numbered pins ---- */
+.pinGroup {
+  cursor: pointer;
+}
+
+.pin {
+  fill: var(--white);
+  stroke: var(--navy-700);
+  stroke-width: 2px;
+  transition:
+    r var(--dur-base) var(--ease-standard),
+    fill var(--dur-base) var(--ease-standard);
+}
+
+.pinActive {
+  fill: var(--amber-500);
+  stroke: var(--navy-900);
+}
+
+.pinText {
+  fill: var(--navy-900);
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+/* ---- Title-block footer strip ---- */
+.titleBlock {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid var(--navy-700);
+  background: var(--white);
+  font-family: var(--font-mono, monospace);
+}
+
+.tbCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3) var(--space-4);
+  border-left: 1px solid var(--color-border);
+}
+
+.tbCell:first-child {
+  border-left: 0;
+}
+
+.tbLabel {
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.tbValue {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  color: var(--navy-900);
+}
+
+.tbMark {
+  align-self: center;
+  margin-block: auto;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--amber-700);
+}
+
+.illustrative {
+  margin-top: var(--space-3);
+  font-size: var(--fs-caption);
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+/* ---- Detail panel ---- */
+.panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+}
+
+.panelNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--navy-900);
+  color: var(--amber-500);
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-h6);
+  font-weight: 800;
+  margin-bottom: var(--space-4);
+}
+
+.panelTitle {
+  font-size: var(--fs-h5);
+  color: var(--navy-900);
+}
+
+.spec {
+  margin-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.specKey {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  padding-top: 2px;
+}
+
+.specVal {
+  font-size: var(--fs-small);
+  color: var(--navy-900);
+  line-height: var(--lh-snug);
+}
+
+.panelStandard {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  line-height: var(--lh-body);
+}
+
+/* ---- Chips / legend ---- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.chip:hover {
+  border-color: var(--amber-500);
+}
+
+.chipActive {
+  border-color: var(--amber-500);
+  background: var(--amber-100);
+  box-shadow: var(--shadow-sm);
+}
+
+.chipNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-pill);
+  background: var(--navy-900);
+  color: var(--white);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+.chipActive .chipNum {
+  background: var(--amber-500);
+  color: var(--navy-900);
+}

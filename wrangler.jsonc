@@ -1,0 +1,17 @@
+{
+  // Cloudflare Pages project config. With this file present, `wrangler pages deploy`
+  // reads the project name + output dir from here (no CLI flags needed) and ships
+  // the functions/ directory alongside the static export in out/.
+  "name": "ventura-brand-guide",
+  "compatibility_date": "2025-05-01",
+  "pages_build_output_dir": "out"
+
+  // EMAIL binding (functions/api/contact.ts): Pages config does NOT support a
+  // `send_email` block — it must be added in the Cloudflare dashboard
+  // (Pages project → Settings → Functions → Bindings → add "Send Email",
+  // variable name EMAIL). GO-LIVE prerequisite: the sender domain must first be
+  // onboarded to Email Sending (`wrangler email sending enable
+  // venturabuilders.africa` + SPF/DKIM DNS), which needs the domain on
+  // Cloudflare (M5). Until the binding exists, env.EMAIL is absent and the
+  // contact form falls back to its mailto: link (Function returns 503).
+}

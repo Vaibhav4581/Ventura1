@@ -1,0 +1,61 @@
+.form {
+  display: grid;
+  gap: var(--space-5);
+}
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+/* Honeypot — visually removed, kept in the accessibility tree off-screen. */
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+}
+
+.formError {
+  margin: 0;
+  color: var(--color-error);
+  font-size: var(--fs-small);
+}
+
+.privacyNote {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-caption);
+}
+.privacyNote a {
+  color: var(--color-link);
+}
+.formError a {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+/* Success panel — replaces the form after a successful send. */
+.success {
+  border: 1px solid var(--glass-border, var(--hairline));
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  background: #e9f6ef;
+  border-color: #bfe3cf;
+}
+.successTitle {
+  font-size: var(--fs-h5);
+  color: var(--green-600);
+  margin-bottom: var(--space-2);
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,25 @@
+/* /privacy — composed from tokens + components/ui. */
+
+.policy {
+  background: var(--color-bg);
+}
+.narrow {
+  max-width: var(--container-narrow);
+}
+.updated {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  margin-bottom: var(--space-6);
+}
+.block {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--hairline);
+}
+.blockTitle {
+  font-size: var(--fs-h5);
+}
+.para {
+  color: var(--color-text-muted);
+}

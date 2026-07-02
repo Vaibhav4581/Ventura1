@@ -1,0 +1,160 @@
+/* /services/[slug] — composed from tokens + components/ui. */
+
+/* Shared per-page section head */
+.head {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 720px;
+  margin-bottom: var(--space-7);
+}
+.title {
+  font-size: var(--fs-h2);
+}
+.lead {
+  color: var(--color-text-muted);
+  font-size: var(--fs-body-lg);
+}
+
+/* ---------------- Overview ---------------- */
+.overview {
+  background: var(--color-bg);
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+.body {
+  display: grid;
+  gap: var(--space-4);
+}
+.para {
+  color: var(--color-text-muted);
+}
+.figure {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-lg);
+}
+.figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-standard);
+}
+.figure:hover img {
+  transform: scale(1.04);
+}
+.figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, rgba(15, 21, 53, 0.28) 100%);
+}
+
+/* Inline "see how we work" text link with arrow */
+.moreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-link);
+  text-decoration: none;
+  width: fit-content;
+}
+.moreLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.moreLink svg {
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+.moreLink:hover svg {
+  transform: translateX(3px);
+}
+
+/* ---------------- What's included ---------------- */
+.includes {
+  background: var(--color-bg-alt);
+}
+.checkGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4) var(--space-6);
+}
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-weight: 600;
+}
+.checkItem svg {
+  flex: none;
+  margin-top: 1px;
+}
+
+/* ---------------- Where it fits ---------------- */
+.fit {
+  background: var(--color-bg);
+}
+.fitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-7);
+  align-items: start;
+}
+.fitCol {
+  display: grid;
+  gap: var(--space-4);
+}
+.subTitle {
+  font-size: var(--fs-h6);
+}
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard);
+}
+.pill:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 880px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  .fitGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}

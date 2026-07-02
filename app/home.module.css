@@ -1,0 +1,419 @@
+/* Homepage (MVP) — composed from tokens + components/ui. Mirrors the premium
+   techniques proven in components/brand/guide.module.css (hero scrim, navy band,
+   amber stat-bar, on-dark ghost button). */
+
+/* ---------------- Hero ---------------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: var(--navy-900); /* paints before the photo layer arrives */
+}
+/* Photo + scrim on their own layer so the slow Ken Burns zoom never moves the
+   text. Reduced motion: the global kill block freezes it on frame one.
+   JPEG declaration first as the fallback; image-set upgrades to WebP. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(150deg, rgba(15, 21, 53, 0.92) 0%, rgba(15, 21, 53, 0.62) 55%, rgba(27, 44, 122, 0.5) 100%),
+    url("/imagery/hero-build.jpg") center / cover no-repeat;
+  background:
+    linear-gradient(150deg, rgba(15, 21, 53, 0.92) 0%, rgba(15, 21, 53, 0.62) 55%, rgba(27, 44, 122, 0.5) 100%),
+    image-set(
+      url("/imagery/hero-build.webp") type("image/webp"),
+      url("/imagery/hero-build.jpg") type("image/jpeg")
+    ) center / cover no-repeat;
+  animation: heroZoom 28s var(--ease-standard) infinite alternate;
+  will-change: transform;
+}
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(70% 90% at 90% 10%, rgba(0, 135, 255, 0.28), transparent 60%);
+}
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-4);
+  max-width: 760px;
+  padding-block: clamp(4rem, 10vw, 8rem);
+}
+.heroEyebrow {
+  color: var(--amber-500);
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  font-size: var(--fs-small);
+}
+.heroTitle {
+  color: #fff;
+  font-size: var(--fs-display);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-display);
+  max-width: 16ch;
+  overflow-wrap: break-word;
+}
+.heroText {
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-body-lg);
+  max-width: 56ch;
+}
+.heroCtas {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+/* ---------------- Trust / stats ---------------- */
+.statsSection {
+  background: var(--color-bg-alt);
+}
+.statBand {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-5);
+  padding: var(--space-7) var(--space-6);
+  border-radius: var(--radius-xl);
+  background: var(--grad-surface);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-md);
+}
+.statBand::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--grad-amber);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+/* ---------------- Services ---------------- */
+.services {
+  background: var(--color-bg);
+  scroll-margin-top: 80px;
+}
+.sectionHead {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 720px;
+  margin-bottom: var(--space-7);
+}
+.sectionTitle {
+  font-size: var(--fs-h2);
+}
+.sectionLead {
+  color: var(--color-text-muted);
+  font-size: var(--fs-body-lg);
+}
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-5);
+}
+
+/* Whole-card link wrapper (service cards → /services/<slug>) */
+.cardLink {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+.cardLink > article {
+  height: 100%;
+}
+
+/* Inline "learn more" text link with arrow (home → inner pages) */
+.moreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-link);
+  text-decoration: none;
+  width: fit-content;
+}
+.moreLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.moreLink svg {
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+.moreLink:hover svg {
+  transform: translateX(3px);
+}
+
+/* Section-level action row (e.g. "View all services") */
+.sectionActions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
+}
+
+/* Amber eyebrow on navy bands (hero + safety). */
+.ctaEyebrow {
+  color: var(--amber-500);
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  font-size: var(--fs-small);
+}
+
+/* Ghost button override for use on dark/navy surfaces */
+.onDark {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  background: transparent !important;
+}
+.onDark:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: #fff !important;
+}
+
+/* ---------------- About ---------------- */
+.about {
+  background: var(--color-bg);
+  scroll-margin-top: 80px;
+}
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+.aboutBody {
+  display: grid;
+  gap: var(--space-4);
+}
+.aboutPara {
+  color: var(--color-text-muted);
+}
+.checklist {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-weight: 600;
+}
+.checkItem svg {
+  flex: none;
+  margin-top: 1px;
+}
+.aboutFigure {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-lg);
+}
+.aboutFigure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-standard);
+}
+.aboutFigure:hover img {
+  transform: scale(1.04);
+}
+.aboutFigure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, rgba(15, 21, 53, 0.28) 100%);
+}
+
+/* ---------------- Why us / values ---------------- */
+.valuesSection {
+  background: var(--color-bg-alt);
+}
+
+/* ---------------- Safety & quality (navy band) ---------------- */
+.safety {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  /* Lightest stop is navy-700 (#1b2c7a) so the amber eyebrow stays AA (5.46:1);
+     grad-brand's navy-600 start would drop it below 4.5:1 for 14px text. */
+  background: linear-gradient(150deg, #1b2c7a 0%, #0f1535 100%);
+}
+.safety::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(55% 90% at 88% 0%, rgba(0, 135, 255, 0.34), transparent 60%);
+}
+.safetyHead {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-3);
+  max-width: 720px;
+  margin-bottom: var(--space-7);
+}
+.safetyTitle {
+  color: #fff;
+  font-size: var(--fs-h2);
+  max-width: 20ch;
+}
+.safetyLead {
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-body-lg);
+}
+.glassGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-5);
+}
+
+/* ---------------- Industries / sectors ---------------- */
+.industries {
+  background: var(--color-bg);
+}
+.industryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+.industryTile {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+  transition: transform var(--dur-base) var(--ease-standard),
+    box-shadow var(--dur-base) var(--ease-standard),
+    border-color var(--dur-base) var(--ease-standard);
+}
+.industryTile:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: transparent;
+}
+.industryIcon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--grad-icon);
+  color: #fff;
+  --icon-accent: #ffb14d;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), var(--shadow-sm);
+}
+.industryName {
+  font-size: var(--fs-h6);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+}
+.industryText {
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-snug);
+}
+
+/* ---------------- Featured projects (treated imagery) ---------------- */
+.projects {
+  background: var(--color-bg-alt);
+  scroll-margin-top: 80px;
+}
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-5);
+}
+.projectCard {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-md);
+}
+.projectCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-standard);
+}
+.projectCard:hover img {
+  transform: scale(1.06);
+}
+.projectMeta {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  padding: var(--space-4);
+  background: linear-gradient(transparent, rgba(8, 12, 30, 0.85));
+  color: #fff;
+}
+.projectMeta b {
+  display: block;
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-body-lg);
+}
+.projectMeta span {
+  font-size: var(--fs-caption);
+  color: rgba(255, 255, 255, 0.82);
+}
+.projectNote {
+  margin-top: var(--space-5);
+  max-width: 68ch;
+  color: var(--color-text-muted);
+  font-size: var(--fs-caption);
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 880px) {
+  .aboutGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+/* Lighter hero photo on small screens (LCP) — same scrim, 828px-wide file */
+@media (max-width: 768px) {
+  .hero::before {
+    background:
+      linear-gradient(150deg, rgba(15, 21, 53, 0.92) 0%, rgba(15, 21, 53, 0.62) 55%, rgba(27, 44, 122, 0.5) 100%),
+      url("/imagery/hero-build-mobile.jpg") center / cover no-repeat;
+    background:
+      linear-gradient(150deg, rgba(15, 21, 53, 0.92) 0%, rgba(15, 21, 53, 0.62) 55%, rgba(27, 44, 122, 0.5) 100%),
+      image-set(
+        url("/imagery/hero-build-mobile.webp") type("image/webp"),
+        url("/imagery/hero-build-mobile.jpg") type("image/jpeg")
+      ) center / cover no-repeat;
+  }
+}

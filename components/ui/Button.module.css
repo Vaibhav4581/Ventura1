@@ -1,0 +1,80 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.md {
+  font-size: var(--fs-small);
+  padding: 0.75rem 1.25rem;
+}
+
+.lg {
+  font-size: var(--fs-body);
+  padding: 1rem 1.75rem;
+}
+
+/* Primary — amber fill with NAVY text (white-on-amber fails WCAG AA) */
+.primary {
+  background: var(--color-cta);
+  color: var(--color-on-cta);
+}
+.primary:hover {
+  background: var(--color-cta-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* Secondary — navy fill, white text */
+.secondary {
+  background: var(--color-primary);
+  color: var(--color-text-invert);
+}
+.secondary:hover {
+  background: var(--navy-600);
+  box-shadow: var(--shadow-md);
+}
+
+/* Ghost — navy outline */
+.ghost {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-border);
+}
+.ghost:hover {
+  border-color: var(--color-primary);
+  background: var(--neutral-50);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Icon nudge — the arrow leans into the action on hover/focus. */
+.btn svg {
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+.btn:hover svg,
+.btn:focus-visible svg {
+  transform: translateX(3px);
+}

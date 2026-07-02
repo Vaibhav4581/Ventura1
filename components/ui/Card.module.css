@@ -1,0 +1,118 @@
+.card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--dur-base) var(--ease-standard),
+    box-shadow var(--dur-base) var(--ease-standard),
+    border-color var(--dur-base) var(--ease-standard);
+}
+
+/* amber top sheen, revealed on hover */
+.sheen {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--grad-amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+.card:hover .sheen {
+  transform: scaleX(1);
+}
+
+/* Icon medallion — navy gradient tile, white+amber duotone glyph */
+.medallion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--grad-icon);
+  color: #fff;
+  --icon-accent: #ffb14d;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), var(--shadow-sm);
+  margin-bottom: var(--space-4);
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+.card:hover .medallion {
+  transform: scale(1.06) rotate(-2deg);
+}
+
+.title {
+  font-size: var(--fs-h6);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+}
+
+.text {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-snug);
+}
+
+/* Trailing hint row (e.g. "Learn more" inside a linked card) */
+.footer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  font-size: var(--fs-caption);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-link);
+}
+.footer svg {
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+.card:hover .footer svg {
+  transform: translateX(3px);
+}
+
+/* ---- variants ---- */
+.value {
+  text-align: center;
+}
+.value .medallion {
+  margin-inline: auto;
+}
+
+.featured {
+  background: var(--grad-surface);
+  border-color: var(--amber-500);
+  box-shadow: var(--shadow-md);
+}
+
+/* Glass — for use on navy feature bands */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: none;
+}
+.glass .title {
+  color: #fff;
+}
+.glass .text {
+  color: var(--color-text-invert-muted);
+}
+.glass .medallion {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px var(--glass-border);
+}

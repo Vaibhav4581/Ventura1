@@ -1,0 +1,391 @@
+.section {
+  position: relative;
+  /* Tighter overall scroll: 5 weighted bands (see STEP_WEIGHTS) over ~380vh so
+     no single step drags and Handover releases the pin promptly. */
+  height: 380vh;
+  margin: 0;
+  background-color: var(--navy-900);
+  /* Don't let the browser re-anchor scroll when the pinned SVG changes size —
+     that shows up as a small jump on the first scroll. */
+  overflow-anchor: none;
+}
+
+/* Pinned viewport. All children are absolutely positioned (each centres itself),
+   so no flexbox here — a flex container was doing nothing useful and could shift
+   layout on the first frame. Sticky with no margin/transform stays stable. */
+.pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Base layer for backgrounds */
+.bgLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+.bgActive {
+  opacity: 1;
+}
+
+/* Blueprint Grid Background */
+.blueprintBg {
+  background-color: #0c2a5e;
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+/* Photos */
+.photoLayer {
+  object-fit: cover;
+}
+
+/* Blueprint SVG — must sit ABOVE the opaque grid (.bgLayer, z-index 1) and be
+   hidden unless the Design/Planning step is active, otherwise the grid paints
+   over the line-art (draw-in invisible) and the SVG bleeds onto the photos. */
+.svgContainer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+/* Compound rule so it wins regardless of source order (not the shared .bgActive). */
+.svgContainer.bgActive {
+  opacity: 1;
+}
+
+.svgArt {
+  width: 100%;
+  height: 100%;
+  max-width: var(--container);
+  padding-inline: var(--space-5);
+}
+
+/* Blueprint strokes. stroke-dashoffset is scrubbed per-frame from the scroll
+   handler, so there is deliberately NO transition on it (a transition would
+   fight the per-frame updates and blur the line-by-line draw). Initial offset
+   of 1 keeps everything un-drawn until the handler runs. */
+.pathBuilding {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.pathCrane {
+  fill: none;
+  stroke: rgba(150, 208, 255, 0.9); /* thin blueprint cyan */
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.pathAnnotation {
+  fill: none;
+  stroke: var(--amber-500);
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+/* Annotation group opacity is ramped with its draw window (JS); no scrubbing
+   transition here either. */
+.annoGroup {
+  opacity: 0;
+}
+
+/* Crane Animation over Photo */
+.craneSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ---- Tower crane rig (muted steel + amber, semi-transparent over photo) ---- */
+.craneSteel {
+  fill: none;
+  stroke: rgba(206, 214, 228, 0.8);
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.craneAmber {
+  fill: none;
+  stroke: var(--amber-500);
+  stroke-width: 4px;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+
+.craneFill {
+  fill: rgba(64, 74, 92, 0.9);
+  stroke: rgba(206, 214, 228, 0.55);
+  stroke-width: 1px;
+}
+
+.craneLoad {
+  fill: rgba(247, 148, 29, 0.72); /* muted amber suspended load */
+  stroke: rgba(64, 74, 92, 0.85);
+  stroke-width: 1px;
+}
+
+/* Whole jib/counter-jib assembly slews slowly around the mast top pivot. */
+.slew {
+  transform-box: view-box;
+  transform-origin: 454px 150px;
+  animation: slew 14s infinite alternate ease-in-out;
+}
+
+/* Trolley eases in/out along the jib. */
+.trolley {
+  transform-box: view-box;
+  animation: trolley 9s infinite alternate ease-in-out;
+}
+
+/* Hoist cable stretches (scaleY from the top) while the hook drops the same
+   distance — kept in step so the cable length tracks the hook. */
+.craneCable {
+  fill: rgba(214, 220, 232, 0.85);
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: hoistCable 5s infinite alternate ease-in-out;
+}
+
+.hook {
+  animation: hoistHook 5s infinite alternate ease-in-out;
+}
+
+/* The building floors that fade in */
+.floorGroup {
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+@keyframes slew {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(8deg); }
+}
+
+@keyframes trolley {
+  0% { transform: translateX(-60px); }
+  100% { transform: translateX(150px); }
+}
+
+@keyframes hoistCable {
+  0% { transform: scaleY(0.35); }
+  100% { transform: scaleY(1); }
+}
+
+@keyframes hoistHook {
+  0% { transform: translateY(-97.5px); }
+  100% { transform: translateY(0); }
+}
+
+/* Static, sensible crane pose when motion is reduced (no slew/trolley/hoist). */
+@media (prefers-reduced-motion: reduce) {
+  .slew { animation: none; transform: rotate(2deg); }
+  .trolley { animation: none; transform: translateX(50px); }
+  .craneCable { animation: none; transform: scaleY(0.85); }
+  .hook { animation: none; transform: translateY(-15px); }
+}
+
+/* Step Card Container */
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.contentInner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Semi-opaque panel so text stays legible over every background. */
+.card {
+  position: relative;
+  display: grid; /* all steps share one cell → panel sizes to the tallest */
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+}
+
+/* One step per card; stacked and cross-faded via opacity. */
+.step {
+  grid-area: 1 / 1;
+  position: relative;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+.stepActive {
+  opacity: 1;
+}
+
+.ghostNumber {
+  position: absolute;
+  top: -22px;
+  right: -8px;
+  font-family: var(--font-display-stack);
+  font-size: 140px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--neutral-100);
+  z-index: 0;
+  user-select: none;
+}
+
+.iconTile {
+  position: relative;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  background-color: var(--navy-900);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--amber-500);
+  margin-bottom: var(--space-4);
+}
+
+.cardTitle {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-h4);
+  font-weight: 800;
+  color: var(--navy-900);
+  margin-bottom: var(--space-3);
+}
+
+.cardDesc {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-body-stack);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}
+
+/* Indicators / Dots */
+.indicators {
+  position: absolute;
+  right: var(--space-5);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  z-index: 10;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  transition: background-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+
+.dotActive {
+  background-color: var(--amber-500);
+  transform: scale(1.4);
+}
+
+/* Scroll Hint */
+.scrollHint {
+  position: absolute;
+  top: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  z-index: 10;
+  opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+.scrollHintHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scrollHintLine {
+  width: 2px;
+  height: 40px;
+  background-color: var(--amber-500);
+  animation: scrollPulse 2s infinite ease-in-out;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(0.5); transform-origin: top; opacity: 0.5; }
+  50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+}
+
+/* Title block (blueprint detail) */
+.titleBlock {
+  position: absolute;
+  bottom: var(--space-5);
+  right: var(--space-5);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-caption);
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(12, 42, 94, 0.8);
+  opacity: 1;
+  z-index: 2;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+.titleBlockHidden {
+  opacity: 0;
+  pointer-events: none;
+}

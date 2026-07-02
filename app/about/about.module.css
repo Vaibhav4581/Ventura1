@@ -1,0 +1,140 @@
+/* /about — composed from tokens + components/ui. */
+
+/* Shared per-page section head */
+.head {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 720px;
+  margin-bottom: var(--space-7);
+}
+.title {
+  font-size: var(--fs-h2);
+}
+.lead {
+  color: var(--color-text-muted);
+  font-size: var(--fs-body-lg);
+}
+
+/* ---------------- Story ---------------- */
+.story {
+  background: var(--color-bg);
+}
+.storyGrid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+.storyBody {
+  display: grid;
+  gap: var(--space-4);
+}
+.para {
+  color: var(--color-text-muted);
+}
+.figure {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-lg);
+}
+.figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-standard);
+}
+.figure:hover img {
+  transform: scale(1.04);
+}
+.figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, rgba(15, 21, 53, 0.28) 100%);
+}
+
+/* ---------------- Purpose / Golden Circle ---------------- */
+.purpose {
+  background: var(--color-bg-alt);
+}
+.purposeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-5);
+}
+.purposeCard {
+  position: relative;
+  height: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.purposeCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--grad-amber);
+}
+.ring {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  font-family: var(--font-display-stack);
+  font-weight: 800;
+  font-size: var(--fs-h5);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-primary);
+}
+.ringText {
+  color: var(--color-text-muted);
+  line-height: var(--lh-body);
+}
+
+/* ---------------- Values ---------------- */
+.values {
+  background: var(--color-bg);
+}
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-5);
+}
+
+/* ---------------- Stats ---------------- */
+.statsSection {
+  background: var(--color-bg-alt);
+}
+.statBand {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-5);
+  padding: var(--space-7) var(--space-6);
+  border-radius: var(--radius-xl);
+  background: var(--grad-surface);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-md);
+}
+.statBand::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--grad-amber);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 880px) {
+  .storyGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}

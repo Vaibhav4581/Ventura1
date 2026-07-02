@@ -1,0 +1,300 @@
+.section {
+  background: var(--color-bg-alt);
+}
+
+.intro {
+  max-width: var(--container-narrow);
+  margin-bottom: var(--space-7);
+}
+
+.introTitle {
+  font-size: var(--fs-h2);
+  margin-top: var(--space-2);
+}
+
+.introLead {
+  margin-top: var(--space-3);
+  font-size: var(--fs-body-lg);
+  color: var(--color-text-muted);
+}
+
+/* ---- Header row: identity + segmented control ---- */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.name {
+  font-size: var(--fs-h4);
+  color: var(--navy-900);
+}
+
+.meta {
+  margin-top: var(--space-1);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.segmented {
+  display: inline-flex;
+  padding: 4px;
+  gap: 2px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.segBtn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.segBtn:hover {
+  color: var(--navy-900);
+}
+
+.segBtnActive {
+  background: var(--amber-500);
+  color: var(--navy-900);
+}
+
+/* ---- Stage: three stacked views, cross-faded ---- */
+.stage {
+  position: relative;
+  height: 440px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+}
+
+/* Absolutely stacked so each view has a DEFINITE 440px box — this lets the
+   plan SVG's height:100% resolve (a grid/auto row leaves it indefinite, so the
+   SVG would take its intrinsic height, overflow, and get clipped). */
+.view {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-slow) var(--ease-standard);
+}
+
+.viewActive {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Corner tag shared by Drawn / Built */
+.tag {
+  position: absolute;
+  left: var(--space-4);
+  bottom: var(--space-4);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: rgba(15, 21, 53, 0.72);
+  color: var(--white);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---- Drawn: blueprint grid + SVG plan ---- */
+.drawn {
+  background-color: #0c2a5e;
+  background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+/* Fills the stage; the tight viewBox scales the plan up to nearly fill it. */
+.plan {
+  width: 100%;
+  height: 100%;
+}
+
+/* Line-work auto-draws in via stroke-dashoffset (pathLength="1" normalises every
+   element to length 1). Staggered: outer wall → partitions → door swings →
+   dimension line, then the labels fade in. `both` keeps the final drawn state;
+   under prefers-reduced-motion the global block collapses the duration so it
+   simply appears fully drawn. Replays on each return to the Drawn view (keyed). */
+.wall {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pvDraw 0.7s var(--ease-standard) 0.1s both;
+}
+
+.wallThin {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pvDraw 0.8s var(--ease-standard) 0.55s both;
+}
+
+.swing {
+  fill: none;
+  stroke: rgba(150, 208, 255, 0.9);
+  stroke-width: 1.4px;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pvDraw 0.6s var(--ease-standard) 1.2s both;
+}
+
+.dim {
+  stroke: var(--amber-500);
+  stroke-width: 1.6px;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pvDraw 0.5s var(--ease-standard) 1.55s both;
+}
+
+.roomLabel {
+  fill: rgba(214, 232, 255, 0.92);
+  font-family: var(--font-mono, monospace);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  animation: pvFade 0.5s var(--ease-standard) 1.5s both;
+}
+
+.dimLabel,
+.dimText {
+  opacity: 0;
+  animation: pvFade 0.4s var(--ease-standard) 1.9s both;
+}
+
+.dimText {
+  fill: var(--amber-500);
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@keyframes pvDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pvFade {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---- Built: photo ---- */
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Numbers: navy panel + metric cards ---- */
+.numbers {
+  background: var(--grad-brand);
+  padding: var(--space-6);
+  display: flex;
+  align-items: center;
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.metricValue {
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-h4);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.05;
+}
+
+.metricLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-invert-muted);
+}
+
+/* ---- Caption ---- */
+.caption {
+  margin-top: var(--space-4);
+  max-width: none;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 760px) {
+  .bar {
+    align-items: stretch;
+  }
+  .segmented {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .segBtn {
+    flex: 1;
+    padding-inline: var(--space-3);
+  }
+  .stage {
+    height: 520px;
+  }
+  .metricGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 460px) {
+  .metricGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+  .metric {
+    padding: var(--space-4);
+  }
+}

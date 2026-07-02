@@ -1,0 +1,10 @@
+/* /404 — composed from tokens + components/ui. */
+
+.notFound {
+  background: var(--color-bg);
+}
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}

@@ -1,0 +1,164 @@
+/* /contact — form + navy details card. */
+.contact {
+  background: var(--color-bg);
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+/* ---- Form column ---- */
+.formTitle {
+  font-size: var(--fs-h3);
+}
+.formLead {
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-6);
+  color: var(--color-text-muted);
+  font-size: var(--fs-body-lg);
+}
+
+/* ---- Details card (navy) ---- */
+.detailsCard {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  --icon-accent: var(--amber-500);
+  background: linear-gradient(150deg, #1b2c7a 0%, #0f1535 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-7);
+  box-shadow: var(--shadow-lg);
+}
+.detailsTitle {
+  color: #fff;
+  font-size: var(--fs-h5);
+  margin-bottom: var(--space-5);
+}
+.list {
+  display: grid;
+  gap: var(--space-4);
+}
+.list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.list li svg {
+  flex: none;
+  margin-top: 2px;
+}
+.link {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+.link:hover {
+  color: var(--amber-500);
+}
+.note {
+  color: var(--color-text-invert-muted);
+  font-style: italic;
+  font-size: var(--fs-caption);
+}
+.hours {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--hairline-light);
+  display: grid;
+  gap: 2px;
+}
+.hoursLabel {
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--amber-500);
+}
+
+@media (max-width: 880px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+}
+
+/* ---------------- FAQ ---------------- */
+.faq {
+  background: var(--color-bg-alt);
+}
+.faqHead {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 720px;
+  margin-bottom: var(--space-7);
+}
+.faqTitle {
+  font-size: var(--fs-h2);
+}
+.faqLead {
+  color: var(--color-text-muted);
+  font-size: var(--fs-body-lg);
+}
+.faqList {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--container-narrow);
+}
+.faqItem {
+  background: var(--color-surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.faqQ {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  font-size: var(--fs-body);
+  color: var(--color-text);
+}
+.faqQ::-webkit-details-marker {
+  display: none;
+}
+.faqQ:hover {
+  color: var(--color-primary);
+}
+.faqChevron {
+  flex: none;
+  transform: rotate(90deg);
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+.faqItem[open] .faqChevron {
+  transform: rotate(-90deg);
+}
+.faqA {
+  padding: 0 var(--space-5) var(--space-5);
+  color: var(--color-text-muted);
+  max-width: 68ch;
+}
+
+/* Smooth expand/collapse — progressive (::details-content, interpolate-size);
+   browsers without support keep the native instant toggle. */
+.faqItem::details-content {
+  opacity: 0;
+  block-size: 0;
+  overflow-y: clip;
+  transition: content-visibility var(--dur-slow) allow-discrete,
+    opacity var(--dur-slow) var(--ease-standard),
+    block-size var(--dur-slow) var(--ease-standard);
+}
+.faqItem[open]::details-content {
+  opacity: 1;
+  block-size: auto;
+}

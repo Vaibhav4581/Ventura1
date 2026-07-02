@@ -1,0 +1,298 @@
+.section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  background-color: #0b1020;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.camWrapper {
+  position: relative;
+  flex-grow: 1;
+  width: 100%;
+  overflow: hidden;
+  background-color: #0b1020;
+}
+
+.svgScene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.photoOverlay {
+  fill: #0b1020;
+  opacity: 0.6;
+}
+
+.skyGradTop {
+  stop-color: #1a233a;
+}
+.skyGradBot {
+  stop-color: #2b3a5a;
+}
+
+.ground {
+  fill: #221d18;
+}
+.foliage {
+  fill: #141a22;
+}
+
+.craneSteel {
+  stroke: #66728a;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+.craneAmber {
+  stroke: var(--amber-500);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+.craneCable {
+  stroke: #444c5c;
+  stroke-width: 1.5;
+}
+.buildingSlab {
+  fill: #0b1020;
+  stroke: var(--amber-500);
+  stroke-width: 2;
+  opacity: 0;
+}
+.buildingColumn {
+  stroke: #66728a;
+  stroke-width: 1.5;
+}
+
+/* Animations */
+@keyframes blink {
+  0%, 49.9% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes scanlineDrift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100px); }
+}
+
+@keyframes slew {
+  0% { transform: rotate(-8deg); }
+  100% { transform: rotate(10deg); }
+}
+
+@keyframes traverse {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(180px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes hoist {
+  0%, 10% { transform: translateY(0); }
+  45%, 55% { transform: translateY(120px); }
+  90%, 100% { transform: translateY(0); }
+}
+
+@keyframes floorReveal {
+  0% { opacity: 0; transform: translateY(20px); }
+  5% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Pause class controlled by observer */
+.paused *,
+.paused .camOverlay::after,
+.paused .recDot {
+  animation-play-state: paused !important;
+}
+
+/* SVG Animation assignments */
+.slewGroup {
+  transform-origin: 500px 200px;
+  animation: slew 14s ease-in-out infinite alternate;
+}
+.trolleyGroup {
+  animation: traverse 24s ease-in-out infinite;
+}
+.hookGroup {
+  animation: hoist 24s ease-in-out infinite;
+}
+
+.floor1 { animation: floorReveal 45s linear infinite; animation-delay: 0s; }
+.floor2 { animation: floorReveal 45s linear infinite; animation-delay: 9s; }
+.floor3 { animation: floorReveal 45s linear infinite; animation-delay: 18s; }
+.floor4 { animation: floorReveal 45s linear infinite; animation-delay: 27s; }
+.floor5 { animation: floorReveal 45s linear infinite; animation-delay: 36s; }
+
+
+/* UI Overlay */
+.camOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-5);
+  padding-bottom: 120px;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  z-index: 10;
+}
+
+/* Scanlines via pseudo-element */
+.camOverlay::after {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 0;
+  right: 0;
+  height: 200%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(255, 255, 255, 0.035) 3px,
+    rgba(255, 255, 255, 0.035) 4px
+  );
+  mix-blend-mode: overlay;
+  animation: scanlineDrift 10s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.topBar, .bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.recGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.recDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff3333;
+  animation: blink 1.4s step-end infinite;
+}
+
+/* Brackets */
+.bracket {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  z-index: 2;
+}
+.bracketTL { top: var(--space-4); left: var(--space-4); border-right: none; border-bottom: none; }
+.bracketTR { top: var(--space-4); right: var(--space-4); border-left: none; border-bottom: none; }
+.bracketBL { bottom: var(--space-4); left: var(--space-4); border-right: none; border-top: none; }
+.bracketBR { bottom: var(--space-4); right: var(--space-4); border-left: none; border-top: none; }
+
+.playSymbol {
+  display: inline-block;
+  margin-right: var(--space-2);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 0 5px 8px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.85);
+}
+
+
+/* Info Block Below */
+.infoBlock {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: linear-gradient(to top, rgba(11, 16, 32, 0.95) 40%, transparent);
+  color: var(--white);
+  text-align: center;
+  padding-bottom: var(--space-6);
+  padding-top: 140px;
+  padding-inline: var(--space-5);
+  pointer-events: none;
+}
+
+.heading {
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-h4);
+  font-weight: 800;
+  margin-bottom: var(--space-2);
+}
+
+.subline {
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-body-lg);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .recDot {
+    animation: none;
+    opacity: 1;
+  }
+  .camOverlay::after {
+    animation: none;
+  }
+  .slewGroup, .trolleyGroup, .hookGroup {
+    animation: none;
+    transform: none;
+  }
+  .buildingSlab {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .camOverlay {
+    padding: var(--space-3);
+    padding-bottom: 120px;
+    font-size: 10px;
+  }
+  
+  .bracket {
+    width: 20px;
+    height: 20px;
+  }
+  .bracketTL { top: var(--space-2); left: var(--space-2); }
+  .bracketTR { top: var(--space-2); right: var(--space-2); }
+  .bracketBL { bottom: var(--space-2); left: var(--space-2); }
+  .bracketBR { bottom: var(--space-2); right: var(--space-2); }
+
+  .infoBlock {
+    padding-inline: var(--space-4);
+    padding-bottom: var(--space-4);
+    padding-top: 100px;
+  }
+  
+  .heading {
+    font-size: var(--fs-h5);
+  }
+  
+  .subline {
+    font-size: var(--fs-body);
+  }
+}

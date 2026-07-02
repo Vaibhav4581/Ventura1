@@ -1,0 +1,46 @@
+/* /careers — composed from tokens + components/ui. */
+
+/* Shared per-page section head */
+.head {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 720px;
+  margin-bottom: var(--space-7);
+}
+.title {
+  font-size: var(--fs-h2);
+}
+.lead {
+  color: var(--color-text-muted);
+  font-size: var(--fs-body-lg);
+}
+
+/* ---------------- Why Ventura ---------------- */
+.why {
+  background: var(--color-bg);
+}
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-5);
+}
+
+/* ---------------- Roles ---------------- */
+.roles {
+  background: var(--color-bg-alt);
+}
+.checkGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4) var(--space-6);
+}
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-weight: 600;
+}
+.checkItem svg {
+  flex: none;
+  margin-top: 1px;
+}

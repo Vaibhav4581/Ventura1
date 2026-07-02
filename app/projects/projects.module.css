@@ -1,0 +1,126 @@
+/* /projects — composed from tokens + components/ui. */
+
+/* ---------------- Portfolio ---------------- */
+.portfolio {
+  background: var(--color-bg);
+}
+
+/* Sector filter (chips). WCAG 2.2 target size: chips are ≥ 40px tall. */
+.filter {
+  display: grid;
+  gap: var(--space-3);
+}
+.filterLabel {
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-link); /* AA on white — see globals.css .eyebrow */
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.chip {
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard);
+}
+.chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.chipActive,
+.chipActive:hover {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.count {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+}
+
+/* ---------------- Project cards ---------------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--dur-base) var(--ease-standard),
+    box-shadow var(--dur-base) var(--ease-standard);
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+.media {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-standard);
+}
+.card:hover .media img {
+  transform: scale(1.06);
+}
+.sectorBadge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+}
+.body {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  padding: var(--space-5);
+}
+.cardTitle {
+  font-size: var(--fs-h6);
+}
+.summary {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-snug);
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.note {
+  margin-top: var(--space-6);
+  max-width: 68ch;
+  color: var(--color-text-muted);
+  font-size: var(--fs-caption);
+}

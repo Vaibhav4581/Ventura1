@@ -1,0 +1,332 @@
+/* Sticky glass header — mirrors the brand-guide TOC bar treatment. */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  transition: box-shadow var(--dur-base) var(--ease-standard);
+}
+.headerScrolled {
+  box-shadow: var(--shadow-md);
+}
+
+/* Reading-progress bar — width driven from the Header scroll effect. */
+.progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 2px;
+  background: var(--grad-amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  margin-right: auto; /* push nav + CTA to the right */
+}
+.brandMark {
+  flex: none;
+}
+/* Crisp typographic wordmark beside the emblem — guarantees the name reads at
+   any size (the emblem's own sub-text is too fine for a header). */
+.wordmark {
+  display: grid;
+  gap: 1px;
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-border);
+  line-height: 1.05;
+}
+.wordmarkName {
+  font-family: var(--font-display-stack);
+  font-weight: 800;
+  font-size: var(--fs-h6);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-primary);
+}
+.wordmarkSub {
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+/* The emblem already carries the wordmark; on small screens drop the text
+   lockup so the bar stays compact. */
+@media (max-width: 600px) {
+  .wordmark {
+    display: none;
+  }
+}
+
+/* ---- Skip link — hidden until focused ---- */
+.skip {
+  position: absolute;
+  left: var(--space-4);
+  top: var(--space-2);
+  z-index: 60;
+  transform: translateY(-150%);
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-small);
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-standard);
+}
+.skip:focus-visible {
+  transform: translateY(0);
+}
+
+/* ---- Desktop nav ---- */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+.link {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  font-family: var(--font-display-stack);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+.link:hover {
+  color: var(--color-primary);
+}
+.linkActive {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary); /* ≥3:1 non-text contrast (1.4.11) */
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* ---- "New" dropdown (desktop) ---- */
+.dropdown {
+  position: relative;
+}
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  font-family: var(--font-display-stack);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+.trigger:hover {
+  color: var(--color-primary);
+}
+.newDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber-500);
+  margin-right: 2px;
+}
+.caret {
+  transition: transform var(--dur-fast) var(--ease-standard);
+}
+.caretOpen {
+  transform: rotate(180deg);
+}
+.menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 230px;
+  display: grid;
+  gap: 2px;
+  padding: var(--space-2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 60;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard),
+    visibility var(--dur-fast) var(--ease-standard);
+}
+/* invisible bridge so the pointer can cross the gap without closing on hover */
+.menu::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+.menuActive {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.menuLink {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  font-family: var(--font-display-stack);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard);
+}
+.menuLink:hover {
+  background: var(--color-bg-alt);
+  color: var(--color-primary);
+}
+.menuLinkActive {
+  color: var(--color-primary);
+  background: var(--color-bg-alt);
+}
+
+.cta {
+  display: inline-flex;
+}
+
+/* ---- Mobile menu button (CSS hamburger) ---- */
+.menuBtn {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+.bars,
+.bars::before,
+.bars::after {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transition: transform var(--dur-fast) var(--ease-standard),
+    opacity var(--dur-fast) var(--ease-standard);
+}
+.bars {
+  position: relative;
+}
+.bars::before,
+.bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.bars::before { top: -6px; }
+.bars::after { top: 6px; }
+.barsOpen { background: transparent; }
+.barsOpen::before { transform: translateY(6px) rotate(45deg); }
+.barsOpen::after { transform: translateY(-6px) rotate(-45deg); }
+
+/* ---- Mobile panel ---- */
+.panel {
+  display: none;
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+}
+.panelOpen {
+  display: block;
+}
+.panelNav {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-4);
+}
+.panelLink {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 600;
+  font-family: var(--font-display-stack);
+  padding-block: var(--space-2);
+}
+.panelLink:hover {
+  color: var(--color-primary);
+}
+.panelLinkActive {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary); /* ≥3:1 non-text contrast (1.4.11) */
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+.panelCta {
+  justify-content: center;
+  margin-top: var(--space-2);
+}
+
+/* ---- "New" group inside the mobile panel ---- */
+.panelGroup {
+  display: grid;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+.panelGroupLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--amber-700);
+}
+.panelSubLink {
+  padding-left: var(--space-4);
+}
+
+/* ---- Responsive switch ---- */
+@media (max-width: 768px) {
+  .nav,
+  .cta {
+    display: none;
+  }
+  .menuBtn {
+    display: inline-flex;
+  }
+}
+@media (min-width: 769px) {
+  .panel {
+    display: none !important;
+  }
+}
