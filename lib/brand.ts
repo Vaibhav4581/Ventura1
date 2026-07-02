@@ -392,6 +392,7 @@ export const nav: NavEntry[] = [
       { label: "How we work", href: "/how-we-work" },
       { label: "Build Explorer", href: "/build-explorer" },
       { label: "Site Cam Time-Lapse", href: "/site-cam" },
+      { label: "Our Structure", href: "/our-structure" },
       { label: "Site map", href: "/site-map" },
       { label: "Anatomy of a wall", href: "/anatomy-of-a-wall" },
       { label: "One project, three views", href: "/project-views" },
@@ -1065,4 +1066,22 @@ export const siteCam = {
   location: "VENTURA SITE", 
   tagline: "Ventura builds — start to finish", 
   speedLabel: "TIME-LAPSE ×720" 
+};
+
+export const orgChart = {
+  intro: "We are structured like the buildings we deliver — leadership at the top, delivery teams as the frame, every function in its place, the workforce as the foundation.",
+  floors: [
+    { level: "F4", label: "Company management" },
+    { level: "F3", label: "Board of directors" },
+    { level: "F2", label: "General manager" },
+    { level: "F1", label: "Execution team" },
+    { level: "G", label: "Project manager" }
+  ],
+  wings: [
+    { id: "civil", label: "Civil team", roles: ["Project engineer","Site engineer","Foreman & technicians"] },
+    { id: "mep", label: "MEP team", roles: ["MEP manager","Project engineer","Site engineer","Foreman & technicians"] }
+  ],
+  core: { label: "Core services", items: ["Quality — QA / QC","Health & safety (HSE)","Transport & machinery"] },
+  crane: { label: "The crane — enabling functions", items: ["Techno-commercial","Tender & contracts","Finance & accounts","Planning & design","HR team","Document control"] },
+  foundation: { label: "Working labors — our foundation", note: "The base every Ventura project stands on." }
 };

@@ -1,0 +1,212 @@
+.section {
+  width: 100%;
+  padding-block: var(--space-8);
+  background: var(--navy-950);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.intro {
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: var(--space-6);
+  padding-inline: var(--space-4);
+}
+
+.title {
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-h2);
+  margin-bottom: var(--space-3);
+  color: var(--white);
+}
+
+.subtitle {
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-body-lg);
+  line-height: 1.6;
+}
+
+.blueprintContainer {
+  width: 100%;
+  max-width: 1000px;
+  background-color: #0c2a5e;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 30px 30px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  margin-inline: auto;
+  margin-bottom: var(--space-5);
+  overflow: hidden;
+}
+
+.svgWrapper {
+  width: 100%;
+  display: block;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.zoneHitArea {
+  fill: transparent;
+  stroke: transparent;
+  cursor: pointer;
+  transition: fill var(--dur-fast) var(--ease-out), stroke var(--dur-fast) var(--ease-out);
+}
+
+.zoneHitArea:hover,
+.zoneHitArea:focus-visible {
+  fill: rgba(247,148,29,0.05);
+}
+
+.zoneHitArea[aria-pressed="true"] {
+  fill: rgba(247,148,29,0.14);
+  stroke: #f7941d;
+  stroke-width: 3px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: center;
+  margin-bottom: var(--space-5);
+  padding-inline: var(--space-4);
+}
+
+.filterChip {
+  background: var(--navy-800);
+  border: 1px solid var(--navy-700);
+  color: var(--color-text-invert-muted);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-small);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out);
+}
+
+.filterChip:hover {
+  background: var(--navy-700);
+  color: var(--white);
+}
+
+.filterChip[aria-pressed="true"] {
+  background: rgba(247,148,29,0.15);
+  border-color: var(--amber-500);
+  color: var(--amber-500);
+}
+
+.detailPanel {
+  width: 100%;
+  max-width: 800px;
+  background: var(--navy-900);
+  border: 1px solid var(--navy-800);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: opacity var(--dur-normal) var(--ease-out);
+  min-height: 120px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detailPanel,
+  .zoneHitArea,
+  .filterChip {
+    transition: none;
+  }
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: var(--space-3);
+}
+
+.panelIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(247,148,29,0.15);
+  color: var(--amber-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-small);
+  font-weight: bold;
+}
+
+.panelTitle {
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-h5);
+  color: var(--amber-500);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.panelContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.panelDesc {
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-body);
+}
+
+.panelList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.panelItem {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-small);
+  background: var(--navy-800);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 4px;
+  color: var(--white);
+}
+
+/* Inactive zones dims when something is selected */
+.hasSelection .zoneHitArea:not([aria-pressed="true"]) {
+  /* We actually control the dimming by dimming the entire SVG paths in JS/CSS */
+}
+
+/* To dim the non-selected SVG elements, we can pass a data-selected state to the SVG wrapper */
+.svgWrapper[data-has-selection="true"] path,
+.svgWrapper[data-has-selection="true"] rect:not(.zoneHitArea),
+.svgWrapper[data-has-selection="true"] text,
+.svgWrapper[data-has-selection="true"] line,
+.svgWrapper[data-has-selection="true"] polygon {
+  opacity: 0.3;
+  transition: opacity var(--dur-normal) var(--ease-out);
+}
+
+.svgWrapper[data-has-selection="true"] g[data-active="true"] path,
+.svgWrapper[data-has-selection="true"] g[data-active="true"] rect:not(.zoneHitArea),
+.svgWrapper[data-has-selection="true"] g[data-active="true"] text,
+.svgWrapper[data-has-selection="true"] g[data-active="true"] line,
+.svgWrapper[data-has-selection="true"] g[data-active="true"] polygon {
+  opacity: 1;
+}
