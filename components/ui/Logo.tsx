@@ -1,17 +1,15 @@
 type Variant = "color" | "white" | "mono";
 
 const SRC: Record<Variant, string> = {
-  color: "/logo/logo.svg",
-  white: "/logo/logo-white.svg",
-  mono: "/logo/logo-mono.svg",
+  color: "/logo/logo-color.png",
+  white: "/logo/logo-white.png",
+  mono: "/logo/logo-mono.png",
 };
 
-const RATIO = 2340 / 1922; // intrinsic logo aspect ratio (crisp vector)
-
-/* The Ventura Builders lockup. `height` drives size; width derives from ratio. */
+/* The Ventura Builders lockup. `height` drives size; width derives from intrinsic ratio. */
 export function Logo({
   variant = "color",
-  height = 56,
+  height = 52, // Slightly larger than the original 46 for a more attractive presence
   className,
 }: {
   variant?: Variant;
@@ -22,10 +20,10 @@ export function Logo({
     <img
       src={SRC[variant]}
       alt="Ventura Builders & Developers"
-      width={Math.round(height * RATIO)}
       height={height}
       className={className}
-      style={{ height, width: "auto" }}
+      style={{ height, width: "auto", objectFit: "contain" }}
     />
   );
 }
+

@@ -34,8 +34,15 @@ export function Footer() {
                 {contact.phonePlaceholder ? <span className={styles.note}>(placeholder)</span> : null}
               </span>
             </li>
+            {contact.whatsapp && (
+              <li>
+                <a href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, "")}`} className={styles.contactLink} target="_blank" rel="noopener noreferrer">
+                  <Icon name="phone" size={18} /> {contact.whatsapp} (WhatsApp)
+                </a>
+              </li>
+            )}
             <li>
-              <span className={styles.contactLine}>
+              <span className={styles.contactLine} style={{ whiteSpace: "pre-line" }}>
                 <Icon name="pin" size={18} /> {contact.address}
                 {contact.addressPlaceholder ? <span className={styles.note}>(placeholder)</span> : null}
               </span>

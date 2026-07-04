@@ -42,30 +42,40 @@
 }
 .brandMark {
   flex: none;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.brand:hover .brandMark {
+  transform: translateY(-2px) scale(1.03);
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
 }
 /* Crisp typographic wordmark beside the emblem — guarantees the name reads at
    any size (the emblem's own sub-text is too fine for a header). */
 .wordmark {
-  display: grid;
-  gap: 1px;
-  padding-left: var(--space-3);
-  border-left: 1px solid var(--color-border);
-  line-height: 1.05;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--amber-500); /* Thicker, more pronounced gold divider */
+  line-height: 1;
 }
 .wordmarkName {
   font-family: var(--font-display-stack);
-  font-weight: 800;
-  font-size: var(--fs-h6);
-  letter-spacing: var(--tracking-tight);
-  color: var(--color-primary);
+  font-weight: 900;
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #0f2b5b; /* Ultra-deep luxury blue */
+  text-shadow: 0 2px 4px rgba(15, 43, 91, 0.2);
 }
 .wordmarkSub {
-  font-family: var(--font-display-stack);
+  font-family: var(--font-sans, system-ui, sans-serif);
   font-weight: 700;
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  letter-spacing: 0.35em; /* Extremely wide, luxurious tracking */
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--amber-500);
 }
 /* The emblem already carries the wordmark; on small screens drop the text
    lockup so the bar stays compact. */

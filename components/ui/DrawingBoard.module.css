@@ -9,6 +9,9 @@
   position: sticky;
   top: 0;
   height: 100vh;
+  /* dvh tracks the visible viewport so nothing hides behind mobile browser
+     chrome; falls back to 100vh where dvh is unsupported. */
+  height: 100dvh;
   width: 100%;
   overflow: hidden;
   background-color: #0c2a5e;
@@ -222,4 +225,19 @@
 .titleBlockHidden {
   opacity: 0;
   pointer-events: none;
+}
+
+/* ---- Mobile ---- Let the copy use the full column width and drop the
+   right-edge dot-rail, which would otherwise sit on top of the text. */
+@media (max-width: 768px) {
+  .copyBox {
+    /* Never exceed the padded column, so the heading/copy can't overflow. */
+    max-width: 100%;
+  }
+  .title {
+    font-size: var(--fs-h3);
+  }
+  .indicators {
+    display: none;
+  }
 }

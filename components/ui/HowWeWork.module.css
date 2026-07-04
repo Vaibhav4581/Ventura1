@@ -17,6 +17,10 @@
   position: sticky;
   top: 0;
   height: 100vh;
+  /* dvh tracks the *visible* viewport, so the pinned scene (and the card /
+     title-block anchored to its edges) isn't cut off behind mobile browser
+     chrome. Falls back to 100vh where dvh is unsupported. */
+  height: 100dvh;
   width: 100%;
   margin: 0;
   overflow: hidden;
@@ -388,4 +392,35 @@
 .titleBlockHidden {
   opacity: 0;
   pointer-events: none;
+}
+
+/* ---- Mobile ---- Centre the card, tame the desktop-scale flourishes, and drop
+   the right-edge dot-rail + title block (both would overlap the now-full-width
+   card on a phone). The scene, blueprint and scroll driver are unchanged. */
+@media (max-width: 768px) {
+  .contentInner {
+    justify-content: center;
+    margin-inline: 0;
+  }
+  .card {
+    /* Fill the padded column and never exceed it, so the copy can't run
+       off-screen on a phone. */
+    width: 100%;
+    max-width: 100%;
+    padding: var(--space-5);
+  }
+  .cardTitle {
+    font-size: var(--fs-h5);
+  }
+  .cardDesc {
+    font-size: var(--fs-body);
+  }
+  .ghostNumber {
+    font-size: 96px;
+    top: -14px;
+  }
+  .indicators,
+  .titleBlock {
+    display: none;
+  }
 }

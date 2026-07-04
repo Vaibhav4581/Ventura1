@@ -29,8 +29,8 @@ export async function generateMetadata({
   const { slug } = await params;
   const s = services.find((x) => x.slug === slug)!;
   return pageMeta({
-    title: s.title,
-    description: `${s.blurb} Delivered across Zambia by Ventura Builders & Developers, Lusaka — get a clear, costed plan.`,
+    title: `${s.title} | Services`,
+    description: `${s.blurb} Delivered across Democratic Republic of Congo (DRC) by Ventura Builders & Developers, Lubumbashi — get a clear, costed plan.`,
     path: `/services/${s.slug}/`,
     image: s.image,
   });

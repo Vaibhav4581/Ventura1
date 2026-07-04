@@ -22,11 +22,12 @@ export default function BuildExplorerPage() {
             <span className="eyebrow">Interactive Process</span>
             <h1 style={{ marginBottom: "var(--space-4)" }}>The Build Explorer</h1>
             <p style={{ color: "var(--neutral-600)", maxWidth: "60ch" }}>
-              Drag to rotate the model, or tap the stages below to see how a Ventura building comes together from the ground up.
+              Scroll to watch a Ventura building assemble from the ground up, stage by stage — drag the model at any point to rotate it.
             </p>
-            <BuildExplorer />
           </div>
         </section>
+
+        <BuildExplorer />
 
         <CtaBand
           id="contact"

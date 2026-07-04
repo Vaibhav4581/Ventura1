@@ -83,7 +83,7 @@ export function serviceJsonLd(service: Service) {
     serviceType: service.title,
     description: service.detail,
     url: `${BASE}/services/${service.slug}/`,
-    areaServed: "Zambia",
+    areaServed: "DRC",
     provider: {
       "@type": "Organization",
       name: brand.name,

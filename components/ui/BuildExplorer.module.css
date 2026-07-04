@@ -1,40 +1,53 @@
-.explorer {
-  display: flex;
-  flex-direction: column;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  margin-block: var(--space-6);
-}
-
-.canvasContainer {
+/* Pinned scroll section — the wireframe assembles as the visitor scrolls.
+   Mirrors HowWeWork.tsx: tall outer wrapper + sticky inner viewport. */
+.section {
   position: relative;
-  width: 100%;
-  height: 380px;
-  background-color: #f7f7f4;
-  cursor: grab;
-  user-select: none;
-  touch-action: none; /* Prevent browser scrolling while rotating */
+  height: 450vh;
+  margin: 0;
+  background: #f7f7f4;
+  /* Don't let the browser re-anchor scroll when the pinned canvas resizes —
+     that shows up as a small jump on the first scroll. */
+  overflow-anchor: none;
 }
 
-.canvasContainer:active {
-  cursor: grabbing;
+/* Pinned viewport. */
+.pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  /* dvh tracks the *visible* viewport so the scene and panel aren't cut off
+     behind mobile browser chrome. Falls back to 100vh where unsupported. */
+  height: 100dvh;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
 }
 
 .canvas {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
+  cursor: grab;
+  user-select: none;
+  /* Allow vertical page scroll over the full-bleed canvas; horizontal drags
+     rotate the model. */
+  touch-action: pan-y;
 }
 
+.canvas:active {
+  cursor: grabbing;
+}
+
+/* Reset-view control */
 .controlsOverlay {
   position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
+  top: var(--space-4);
+  right: var(--space-4);
   display: flex;
   gap: var(--space-2);
+  z-index: 10;
 }
 
 .actionButton {
@@ -58,10 +71,87 @@
   background: rgba(255, 255, 255, 1);
 }
 
-.footer {
-  padding: var(--space-4);
-  border-top: 1px solid var(--color-border);
-  background: var(--white);
+/* Scroll hint — fades out once scrolling begins */
+.scrollHint {
+  position: absolute;
+  top: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--navy-900);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  z-index: 10;
+  opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+.scrollHintHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scrollHintLine {
+  width: 2px;
+  height: 40px;
+  background-color: var(--amber-500);
+  animation: scrollPulse 2s infinite ease-in-out;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(0.5); transform-origin: top; opacity: 0.5; }
+  50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+}
+
+/* Progress rail / dots */
+.indicators {
+  position: absolute;
+  right: var(--space-5);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  z-index: 10;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(17, 17, 17, 0.2);
+  transition: background-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+
+.dotActive {
+  background-color: var(--amber-500);
+  transform: scale(1.4);
+}
+
+/* Foreground panel — passive chips + live caption */
+.panel {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: var(--space-5);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.panelInner {
+  max-width: 520px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-5);
+  pointer-events: auto;
 }
 
 .chips {
@@ -131,19 +221,19 @@
   font-size: var(--fs-small);
 }
 
-/* Mobile Responsiveness */
+/* Mobile — centre the panel, drop the right-edge dot rail (it would overlap
+   the now-full-width panel on a phone). */
 @media (max-width: 768px) {
-  .canvasContainer {
-    height: 300px;
+  .panel {
+    left: 0;
+    right: 0;
+    padding: var(--space-4);
   }
-  
-  .controlsOverlay {
-    flex-direction: column;
-    align-items: flex-end;
+  .panelInner {
+    max-width: 100%;
+    padding: var(--space-4);
   }
-  
-  .actionButton {
-    padding: var(--space-1) var(--space-2);
-    font-size: 11px;
+  .indicators {
+    display: none;
   }
 }

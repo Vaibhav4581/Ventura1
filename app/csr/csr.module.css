@@ -1,0 +1,197 @@
+/* /csr — Corporate Social Responsibility page styles */
+
+/* Shared header section */
+.head {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 720px;
+  margin-bottom: var(--space-7);
+}
+.title {
+  font-size: var(--fs-h2);
+}
+
+/* ---------------- Stats Strip ---------------- */
+.statsSection {
+  background: var(--color-bg);
+  padding-bottom: var(--space-4);
+}
+.statBand {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  background: var(--color-surface);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.statBand::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--amber-500);
+}
+.statItem {
+  padding: var(--space-5);
+  border-right: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.statItem:last-child {
+  border-right: none;
+}
+.statValue {
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-h3);
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+}
+.statSuffix {
+  color: var(--amber-500);
+  font-size: 0.8em;
+  margin-left: 2px;
+}
+.statLabel {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+/* ---------------- Pillars ---------------- */
+.pillars {
+  background: var(--color-bg-alt);
+}
+.pillarGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+.pillarCard {
+  background: var(--color-surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard);
+}
+.pillarCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.pillarHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.iconWrap {
+  flex: none;
+  color: var(--amber-500);
+}
+.pillarTitle {
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-h4);
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+.pillarLead {
+  font-size: var(--fs-body);
+  color: var(--color-text);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+.bulletList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.bulletItem {
+  position: relative;
+  padding-left: var(--space-4);
+  color: var(--color-text-muted);
+  line-height: var(--lh-body);
+  font-size: var(--fs-body);
+}
+.bulletItem::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--amber-500);
+  font-weight: bold;
+}
+
+/* ---------------- Governance ---------------- */
+.governance {
+  background: var(--color-bg);
+}
+.govBlock {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+.govEyebrow {
+  display: block;
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+.govText {
+  font-size: var(--fs-body-lg);
+  color: var(--color-text);
+  margin-bottom: var(--space-6);
+}
+.contactBlock {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--space-4);
+  display: inline-block;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 880px) {
+  .pillarGrid {
+    grid-template-columns: 1fr;
+  }
+  .statBand {
+    grid-template-columns: 1fr 1fr;
+  }
+  .statItem {
+    border-bottom: 1px solid var(--hairline);
+  }
+  .statItem:nth-child(even) {
+    border-right: none;
+  }
+  .statItem:nth-child(odd) {
+    border-right: 1px solid var(--hairline);
+  }
+  .statItem:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+}
+@media (max-width: 480px) {
+  .statBand {
+    grid-template-columns: 1fr;
+  }
+  .statItem {
+    border-right: none !important;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .statItem:last-child {
+    border-bottom: none;
+  }
+}

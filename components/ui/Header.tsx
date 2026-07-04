@@ -84,7 +84,7 @@ export function Header() {
       <span ref={progressRef} className={styles.progress} aria-hidden="true" />
       <div className={`container ${styles.inner}`}>
         <Link href="/" className={styles.brand} aria-label="Ventura Builders & Developers — home">
-          <Logo variant="color" height={46} className={styles.brandMark} />
+          <Logo variant="color" height={64} className={styles.brandMark} />
           <span className={styles.wordmark} aria-hidden="true">
             <span className={styles.wordmarkName}>Ventura</span>
             <span className={styles.wordmarkSub}>Builders &amp; Developers</span>

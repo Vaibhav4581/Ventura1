@@ -1,10 +1,10 @@
-.section {
+/* ---- Intro (normal flow, above the pinned scene) ---- */
+.introSection {
   background: var(--color-bg-alt);
 }
 
 .intro {
   max-width: var(--container-narrow);
-  margin-bottom: var(--space-7);
 }
 
 .introTitle {
@@ -18,26 +18,60 @@
   color: var(--color-text-muted);
 }
 
-/* ---- Header row: identity + segmented control ---- */
-.bar {
+/* ---- Pinned scroll section ---- */
+.scroller {
+  position: relative;
+  height: 300vh;
+  margin: 0;
+  background: var(--color-bg-alt);
+  /* Don't let the browser re-anchor scroll when a view resizes. */
+  overflow-anchor: none;
+}
+
+.pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ---- Overlay: identity + progress indicator ---- */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding-block: var(--space-5);
+  pointer-events: none;
+  /* Scrim so identity/labels stay legible over the photo view. */
+  background: linear-gradient(to bottom, rgba(15, 21, 53, 0.55), rgba(15, 21, 53, 0));
+}
+
+.overlayInner {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-4);
-  margin-bottom: var(--space-4);
+}
+
+.identity {
+  pointer-events: auto;
 }
 
 .name {
   font-size: var(--fs-h4);
-  color: var(--navy-900);
+  color: var(--white);
 }
 
 .meta {
   margin-top: var(--space-1);
   font-family: var(--font-mono, monospace);
   font-size: var(--fs-small);
-  color: var(--color-text-muted);
+  color: var(--color-text-invert-muted);
 }
 
 .segmented {
@@ -47,6 +81,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   background: var(--color-surface);
+  pointer-events: auto;
 }
 
 .segBtn {
@@ -76,35 +111,32 @@
 
 /* ---- Stage: three stacked views, cross-faded ---- */
 .stage {
-  position: relative;
-  height: 440px;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--color-border);
+  position: absolute;
+  inset: 0;
 }
 
-/* Absolutely stacked so each view has a DEFINITE 440px box — this lets the
-   plan SVG's height:100% resolve (a grid/auto row leaves it indefinite, so the
-   SVG would take its intrinsic height, overflow, and get clipped). */
+/* Absolutely stacked so all three share one cell and never leave the flow —
+   opacity is scrubbed per frame from the scroll handler (no CSS transition,
+   which would lag the scrub). Base opacities below keep Drawn visible before
+   the first frame runs; JS takes over on mount. */
 .view {
   position: absolute;
   inset: 0;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--dur-slow) var(--ease-standard);
 }
 
-.viewActive {
+/* Drawn is the first band → visible on initial paint (declared after .view so
+   it wins the equal-specificity tie). */
+.drawn {
   opacity: 1;
-  pointer-events: auto;
 }
 
 /* Corner tag shared by Drawn / Built */
 .tag {
   position: absolute;
-  left: var(--space-4);
-  bottom: var(--space-4);
+  left: var(--space-5);
+  bottom: calc(var(--space-7) + var(--space-4));
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-sm);
   background: rgba(15, 21, 53, 0.72);
@@ -113,6 +145,7 @@
   font-size: var(--fs-caption);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  z-index: 2;
 }
 
 /* ---- Drawn: blueprint grid + SVG plan ---- */
@@ -127,20 +160,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-4);
+  padding: var(--space-6);
 }
 
-/* Fills the stage; the tight viewBox scales the plan up to nearly fill it. */
+/* Cap the plan so it doesn't balloon on tall/wide viewports. */
 .plan {
   width: 100%;
   height: 100%;
+  max-width: min(90vw, 1000px);
+  max-height: 72vh;
 }
 
 /* Line-work auto-draws in via stroke-dashoffset (pathLength="1" normalises every
    element to length 1). Staggered: outer wall → partitions → door swings →
-   dimension line, then the labels fade in. `both` keeps the final drawn state;
-   under prefers-reduced-motion the global block collapses the duration so it
-   simply appears fully drawn. Replays on each return to the Drawn view (keyed). */
+   dimension line, then the labels fade in. Plays once on mount; under
+   prefers-reduced-motion the global block collapses the duration. */
 .wall {
   fill: none;
   stroke: rgba(255, 255, 255, 0.85);
@@ -225,6 +259,7 @@
   padding: var(--space-6);
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .metricGrid {
@@ -232,6 +267,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
   width: 100%;
+  max-width: var(--container);
 }
 
 .metric {
@@ -246,7 +282,7 @@
 
 .metricValue {
   font-family: var(--font-display-stack);
-  font-size: var(--fs-h4);
+  font-size: var(--fs-h3);
   font-weight: 800;
   color: var(--white);
   line-height: 1.05;
@@ -261,16 +297,26 @@
 }
 
 /* ---- Caption ---- */
+.captionBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding-block: var(--space-4);
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(15, 21, 53, 0.55), rgba(15, 21, 53, 0));
+}
+
 .caption {
-  margin-top: var(--space-4);
   max-width: none;
   font-size: var(--fs-small);
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.88);
 }
 
 /* ---- Responsive ---- */
 @media (max-width: 760px) {
-  .bar {
+  .overlayInner {
     align-items: stretch;
   }
   .segmented {
@@ -280,9 +326,6 @@
   .segBtn {
     flex: 1;
     padding-inline: var(--space-3);
-  }
-  .stage {
-    height: 520px;
   }
   .metricGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -296,5 +339,62 @@
   }
   .metric {
     padding: var(--space-4);
+  }
+}
+
+/* ---- Reduced motion: no scrubbing. Unpin and show the three views as a
+   simple stacked sequence (all visible). JS never sets inline opacity in this
+   mode, so these rules fully control layout. ---- */
+@media (prefers-reduced-motion: reduce) {
+  .scroller {
+    height: auto;
+  }
+  .pin {
+    position: static;
+    height: auto;
+    overflow: visible;
+    padding-block: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  .overlay {
+    position: static;
+    background: none;
+    padding-block: 0;
+  }
+  .name,
+  .meta {
+    color: var(--navy-900);
+  }
+  .meta {
+    color: var(--color-text-muted);
+  }
+  .stage {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  .view {
+    position: relative;
+    inset: auto;
+    opacity: 1 !important;
+    pointer-events: auto;
+    height: 60vh;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+  .tag {
+    bottom: var(--space-4);
+  }
+  .captionBar {
+    position: static;
+    background: none;
+    padding-block: 0;
+  }
+  .caption {
+    color: var(--color-text-muted);
   }
 }

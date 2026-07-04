@@ -11,16 +11,16 @@ import { ProjectsExplorer } from "./ProjectsExplorer";
 const pj = pages.projects;
 
 export const metadata: Metadata = pageMeta({
-  title: "Projects",
+  title: "Sectors",
   description:
-    "Explore the kinds of projects Ventura Builders & Developers delivers across Zambia — filter the portfolio by sector.",
+    "Explore the kinds of projects Ventura Builders & Developers delivers across Democratic Republic of Congo (DRC) — filter the portfolio by sector.",
   path: "/projects/",
   image: "/imagery/mixeduse.jpg",
 });
 
 const crumbs = breadcrumbsJsonLd([
   { name: "Home", path: "/" },
-  { name: "Projects", path: "/projects/" },
+  { name: "Sectors", path: "/projects/" },
 ]);
 
 export default function ProjectsPage() {

@@ -368,10 +368,11 @@ export const stats = [
    real details land (see docs/ROADMAP.md "Open items"). */
 export const contact = {
   email: brand.email,
-  phone: "+260 000 000 000",
-  phonePlaceholder: true,
-  address: "Lusaka, Zambia",
-  addressPlaceholder: true,
+  phone: "+243 817 106 314",
+  phonePlaceholder: false,
+  whatsapp: "+91 87438 89943",
+  address: "Ventura Builders & Developers SARL\nOffice 2F15, 2nd floor. Hypnose Building.\n826 Av. Mama Yemo crossing Tabora,\nLubumbashi, DRC.",
+  addressPlaceholder: false,
 };
 
 /* Site navigation. Route-aware inner pages (M3); full sitemap (M7).
@@ -384,8 +385,11 @@ export const isNavGroup = (e: NavEntry): e is NavGroup => "children" in e;
 export const nav: NavEntry[] = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Projects", href: "/projects" },
+  { label: "Sectors", href: "/projects" },
   { label: "Approach", href: "/approach" },
+  { label: "Careers", href: "/careers" },
+  { label: "CSR", href: "/csr" },
+  /*
   {
     label: "New",
     children: [
@@ -395,16 +399,17 @@ export const nav: NavEntry[] = [
       { label: "Our Structure", href: "/our-structure" },
       { label: "Site map", href: "/site-map" },
       { label: "Anatomy of a wall", href: "/anatomy-of-a-wall" },
-      { label: "One project, three views", href: "/project-views" },
+      { label: "Case Study", href: "/project-views" },
     ],
   },
+  */
   { label: "Contact", href: "/contact" },
 ];
 
 /* Secondary links surfaced in the footer only. */
 export const footerLinks: NavLink[] = [
-  { label: "Careers", href: "/careers" },
   { label: "Privacy", href: "/privacy" },
+  { label: "CSR Policies", href: "/csr" },
 ];
 
 /* FAQ — shown on /contact with FAQPage structured data. Honest answers only:
@@ -412,7 +417,7 @@ export const footerLinks: NavLink[] = [
 export const faqs: { q: string; a: string }[] = [
   {
     q: "What kinds of projects do you take on?",
-    a: "Residential, commercial and industrial work across Zambia — from family homes and renovations to warehouses, offices and specialist cold rooms. If you're not sure whether your project fits, ask: we'll tell you straight.",
+    a: "Residential, commercial and industrial work across Democratic Republic of Congo (DRC) — from family homes and renovations to warehouses, offices and specialist cold rooms. If you're not sure whether your project fits, ask: we'll tell you straight.",
   },
   {
     q: "How do I get a quote?",
@@ -432,7 +437,7 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Where do you work?",
-    a: "We're based in Lusaka and deliver projects across Zambia. For the wider region, talk to us about your site and we'll confirm what's possible.",
+    a: "We're based in Lubumbashi and deliver projects across Democratic Republic of Congo (DRC). For the wider region, talk to us about your site and we'll confirm what's possible.",
   },
 ];
 
@@ -441,7 +446,7 @@ export const home = {
   about: {
     eyebrow: "Who we are",
     title: "A builder you can rely on, from first plan to final handover",
-    lead: "Ventura Builders & Developers is a construction and development company delivering residential, commercial and industrial projects across Zambia and the wider region.",
+    lead: "Ventura Builders & Developers is a construction and development company delivering residential, commercial and industrial projects across Democratic Republic of Congo (DRC) and the wider region.",
     body: [
       "We take single-point responsibility for the whole build — planning, engineering, construction and finishing — so you have one accountable team and one clear line of communication from day one.",
       "Every project runs to international standards, with disciplined cost control and safety built into each decision on site. The result is work that's delivered on time, on budget, and made to last.",
@@ -498,8 +503,8 @@ export const pages = {
   about: {
     header: {
       eyebrow: "About Ventura",
-      title: "A construction partner built on trust",
-      lead: "We deliver safe, high-quality construction and development across Zambia and the wider region — to international standards, with confidence at the core.",
+      title: "Built with confidence",
+      lead: "We deliver safe, high-quality construction and development across Democratic Republic of Congo (DRC) and the wider region — to international standards, with confidence at the core.",
     },
     story: {
       eyebrow: "Our story",
@@ -558,7 +563,7 @@ export const pages = {
     details: {
       title: "Reach us directly",
       hoursLabel: "Office hours",
-      hours: "Mon–Fri, 08:00–17:00 CAT",
+      hours: "Mon–Sat, 08:00–18:00 CAT",
     },
     faq: {
       eyebrow: "Questions",
@@ -688,52 +693,80 @@ export const pages = {
     },
   },
   careers: {
-    header: {
+    hero: {
       eyebrow: "Careers",
-      title: "Build your career with confidence",
-      lead: "We're building a team that takes pride in safe sites and lasting work — engineers, supervisors, tradespeople, and the professionals who support them.",
+      title: "Building Tomorrow, Together",
+      body: "Do you live for a challenge, have a passion for making a lasting impact, and are fueled by curiosity? At Ventura, we're not just building projects — we're building history that will support generations to come. If you're ready to make a difference, this is the place for you.",
+      cta: { label: "Explore Jobs at Ventura", href: "#opportunities" }
     },
-    why: {
-      eyebrow: "Why Ventura",
-      title: "What it's like to work here",
-      lead: "Three honest reasons people choose to build with us.",
-      points: [
-        {
-          icon: "spark" as IconName,
-          title: "Real responsibility",
-          text: "Small enough that your work is visible; ambitious enough that it matters.",
-        },
-        {
-          icon: "shield" as IconName,
-          title: "Safety first, always",
-          text: "You will never be asked to trade your safety for a programme date.",
-        },
-        {
-          icon: "globe" as IconName,
-          title: "International standards",
-          text: "We build to global benchmarks — and train our people the same way.",
-        },
+    whyVentura: {
+      title: "Why Ventura?",
+      paragraphs: [
+        "At Ventura, we are committed to fostering an inclusive culture where every individual feels a profound sense of belonging and value. Our dedication to safety and well-being ensures that our colleagues are supported with rigorous safety measures and comprehensive benefits, allowing them to focus on achieving exceptional results with confidence.",
+        "Importantly, we invest in our people by providing them with the tools, training, and opportunities to grow and explore diverse career paths within our portfolio across DRC. Our commitment extends to the communities where we operate, as we strive to make a positive impact through sustainable and meaningful projects. By aligning our efforts with a shared purpose, we reinforce a legacy of excellence and positive change."
       ],
+      images: [
+        "/imagery/crane.jpg",
+        "/imagery/steelframe.jpg",
+        "/imagery/planning.jpg"
+      ]
     },
-    roles: {
-      eyebrow: "Who we look for",
-      title: "Roles we typically hire",
-      lead: "There's no vacancy board yet — we review CVs on a rolling basis across these roles, and we're always interested in great people.",
-      list: [
-        "Site engineers & site agents",
-        "Quantity surveyors & estimators",
-        "Project managers",
-        "HSE officers",
-        "Foremen & site supervisors",
-        "Skilled trades — electrical, plumbing, carpentry, steelwork, finishes",
-      ],
+    intro: {
+      title: "Ventura Careers",
+      body: "We're proud to offer robust training and development opportunities to encourage constant learning and growth, so our colleagues are empowered to do their best work and reach their full potential."
     },
-    apply: {
-      eyebrow: "Join the team",
-      title: "How to apply",
-      text: "Email your CV and a short note about the kind of role you're after. We reply to every application.",
+    professionals: {
+      title: "Professionals",
+      intro: "Our professional staff powers our projects, leading and supporting teams. Whether you work in engineering, project management, or one of our corporate functions, you have the opportunity to be a part of a world-class team. Regardless of experience level or discipline, professionals at Ventura play an integral role in supporting customer goals, advancing Ventura's leadership, and delivering success one project at a time.",
+      cta: { label: "Join Our Team", href: "mailto:info@venturabuilders.africa" },
+      departments: [
+        { title: "Engineering", image: "/imagery/planning.jpg" },
+        { title: "Construction", image: "/imagery/steelframe.jpg" },
+        { title: "Project Management", image: "/imagery/crane.jpg" },
+        { title: "Procurement", image: "/imagery/mixeduse.jpg" },
+        { title: "Quality & Safety", image: "/imagery/team.jpg" },
+        { title: "Corporate Affairs", image: "/imagery/residence.jpg" }
+      ]
     },
+    craft: {
+      title: "Skilled Trades & Site Teams",
+      intro: "Our site teams demand the technical skills required to build a new tomorrow. That's why Ventura's world-class projects are backed by the highest safety standards in the industry. We emphasize continuous learning, trade certifications, and career advancement, supporting long-term growth with a clear roadmap for the future.",
+      locations: [
+        { title: "Heavy Machinery & Plant", image: "/imagery/crane.jpg" },
+        { title: "Structural & Steel", image: "/imagery/steelframe.jpg" },
+        { title: "MEP & Technical Services", image: "/imagery/mixeduse.jpg" }
+      ]
+    },
+    programs: {
+      title: "Additional Career Programs",
+      intro: "As investment in construction surges across the DRC, we need passionate individuals ready to help us build the future. To meet this moment, Ventura offers a range of dynamic career pathways for people with different life experiences, including our Internship and Apprenticeship Programs, and New Graduates Program.",
+      items: [
+        { title: "New Graduates Program", body: "For recent or upcoming graduates, we offer development opportunities that will help you launch your career in the engineering and construction industry.", image: "/imagery/planning.jpg" },
+        { title: "Internship Program", body: "Our Internship Program allows students to go beyond the classroom and gain first-hand knowledge of the construction industry, while also making a positive impact.", image: "/imagery/team.jpg" },
+        { title: "Apprenticeship Program", body: "Our Apprenticeship Program provides hands-on, on-site training alongside experienced professionals to help you build a career in the skilled construction trades.", image: "/imagery/steelframe.jpg" }
+      ]
+    },
+    life: {
+      title: "Life at Ventura",
+      intro: "We work every day to foster a culture that values and seeks out many perspectives, and encourages colleagues to explore, think innovatively, and grow professionally.",
+      benefits: [
+        { title: "Benefits & Perks", body: "The health and well-being of our colleagues and their families is our top priority. We offer competitive compensation and professional development opportunities.", image: "/imagery/team.jpg" },
+        { title: "Diversity & Inclusion", body: "We work to ensure that every colleague feels that they belong as part of 'One Team,' and are respected and rewarded for what they bring.", image: "/imagery/planning.jpg" },
+        { title: "Safety First", body: "Nothing is more important than the safety of our colleagues. We are steadfast in our commitment to ensuring that everyone returns home safely.", image: "/imagery/steelframe.jpg" }
+      ]
+    },
+    testimonials: {
+      title: "Hear From Our People",
+      items: [
+        { quote: "When I first came to Ventura, I looked around and noticed the passion. The company is full of people who are fundamentally passionate about our customers' missions and the projects that we get to build.", author: "Afolabi Sanusi", position: "Project Manager" },
+        { quote: "Apart from the incredible projects that we do, what sets us apart is the amazingly diverse teams that we have at Ventura. We are such diverse people, but what fits us all together is our Ventura culture.", author: "Grace Sununu", position: "Lead Engineer" },
+        { quote: "Safety isn't just a poster on the wall here; it is how we operate every single day. I've been on many sites, but the standard of care and coordination at Ventura is unmatched.", author: "Didier Mwamba", position: "Site Foreman" },
+        { quote: "The level of precision expected from us is incredibly high, but so is the support we get. It's an environment that constantly pushes you to learn and master your discipline.", author: "Sarah Katanga", position: "Quantity Surveyor" },
+        { quote: "Working with top-tier equipment makes a huge difference. Ventura invests heavily not just in the best machinery, but in training us to operate it safely and efficiently on major sites.", author: "Jean-Luc Kabasele", position: "Heavy Equipment Operator" }
+      ]
+    }
   },
+
   privacy: {
     header: {
       eyebrow: "Privacy",
@@ -1036,7 +1069,7 @@ export const projectViews = {
     title: "The plan, the building, the numbers",
     lead: "The same project seen three ways — the drawing we set out from, the building we handed over, and the figures behind it.",
   },
-  name: "Private residence — Lusaka",
+  name: "Private residence — Lubumbashi",
   meta: "Residential · design and build · 2024",
   builtImage: "/imagery/residence.jpg",
   builtAlt: "The finished residence",
@@ -1084,4 +1117,91 @@ export const orgChart = {
   core: { label: "Core services", items: ["Quality — QA / QC","Health & safety (HSE)","Transport & machinery"] },
   crane: { label: "The crane — enabling functions", items: ["Techno-commercial","Tender & contracts","Finance & accounts","Planning & design","HR team","Document control"] },
   foundation: { label: "Working labors — our foundation", note: "The base every Ventura project stands on." }
+};
+
+export const caseStudy = {
+  project: "Private Residence",
+  location: "Lubumbashi, DRC",
+  delivery: "Design & Build",
+  aerialPhoto: "/imagery/residence.jpg",
+  aerialAlt: "Aerial view of the completed residence and estate",
+  phases: [
+    { num: "01", key: "Plan",      label: "The site plan",         copy: "Four buildings, terrace and pool — set out as a measured drawing." },
+    { num: "02", key: "Model",     label: "Lifted into a model",   copy: "Stepped wings, hipped roofs and the lantern take shape in three dimensions." },
+    { num: "03", key: "Build",     label: "The finished estate",   copy: "Terracotta roofs, solar array, terrace and pool — complete to specification." },
+    { num: "04", key: "Delivered", label: "As built, for real",    copy: "The estate photographed from the air on handover." },
+    { num: "05", key: "Numbers",   label: "The project, quantified", copy: "Key figures behind the build — to be confirmed against the project record." }
+  ],
+  stats: [
+    { value: "1,150", unit: "m²", label: "Built area" },
+    { value: "14",    unit: "months", label: "Programme" },
+    { value: "4",     unit: "", label: "Buildings on site" },
+    { value: "12",    unit: "kWp", label: "Solar array" },
+    { value: "68",    unit: "m²", label: "Swimming pool" },
+    { value: "6",     unit: "", label: "Trades in-house" }
+  ]
+};
+
+export const csr = {
+  header: {
+    eyebrow: "Corporate Social Responsibility",
+    title: "Corporate Social Responsibility",
+    lead: "At Ventura Construction Limited, we build more than structures — we build trust, opportunity and lasting value for the communities in which we work. Headquartered in Lubumbashi and operating across the Copperbelt region of the DRC and Zambia, we recognise that responsible construction means caring for our people, protecting the environment, strengthening local communities and conducting business with integrity."
+  },
+  pillars: [
+    {
+      title: "People, health & safety",
+      lead: "The safety and wellbeing of everyone affected by our work is our first responsibility.",
+      icon: "shield" as IconName,
+      bullets: [
+        "Comply with, and strive to exceed, applicable health and safety legislation and recognised HSE standards.",
+        "Provide appropriate PPE, safe systems of work, and enforce safe handling of materials and substances.",
+        "Give every worker the information, instruction, supervision and training to work competently.",
+        "Consult employees on health and safety, and allocate the resources to uphold these commitments.",
+        "Prioritise injury and accident prevention while fostering worker wellbeing."
+      ]
+    },
+    {
+      title: "Communities & local economy",
+      lead: "We share the benefits of our growth with the communities that host our projects.",
+      icon: "building" as IconName,
+      bullets: [
+        "Prioritise local recruitment and develop Congolese and regional talent through training and apprenticeships.",
+        "Source from local suppliers and subcontractors wherever quality and specification allow.",
+        "Invest in community initiatives and engage openly with the communities affected by our work.",
+        "Respect the rights, culture and dignity of the people and neighbourhoods around our sites."
+      ]
+    },
+    {
+      title: "Environmental responsibility",
+      lead: "We advance superior environmental standards and cultivate a sustainable environment in which we operate.",
+      icon: "globe" as IconName,
+      bullets: [
+        "Design and build energy-efficient structures using both traditional and cutting-edge materials.",
+        "Promote recycled and sustainable materials, and use renewable technologies such as heat recovery, air-source heat pumps and solar energy harvesting.",
+        "Minimise or eliminate hazardous emissions to air, water and soil wherever possible; manage construction waste responsibly.",
+        "Adhere to all relevant building, planning and environmental regulations and emerging standards.",
+        "Collaborate with suppliers and clients to share best practice and reduce impact."
+      ]
+    },
+    {
+      title: "Integrity, quality & ethical business",
+      lead: "Our reputation for reliability rests on doing things properly.",
+      icon: "check" as IconName,
+      bullets: [
+        "Source high-quality materials locally and internationally, inspected through our quality assessment unit before use.",
+        "Deliver services that meet client specifications, on time and to a continuously improving standard.",
+        "Conduct business with honesty and transparency; maintain zero tolerance for bribery and corruption.",
+        "Ensure clients receive optimal, best-value returns on their investment."
+      ]
+    }
+  ],
+  governance: "Responsibility for this statement sits with Ventura's management, supported by our HSE, Quality (QA/QC) and Planning & Design functions. We review it periodically, monitor performance, and report progress to our clients and stakeholders.",
+  stats: [
+    { label: "Local workforce", value: 85, suffix: "%" },
+    { label: "Incident-free days", value: 1240, suffix: "" },
+    { label: "Community projects", value: 12, suffix: "" },
+    { label: "Apprenticeships offered", value: 45, suffix: "" }
+  ],
+  contact: "Ventura Builders & Developers SARL · Office 2F15, 2nd floor. Hypnose Building. · 826 Av. Mama Yemo crossing Tabora, Lubumbashi, DRC. · info@venturabuilders.africa · +91 87438 89943 (whatsapp) · +243 817 106 314"
 };

@@ -62,9 +62,17 @@ export default function ContactPage() {
                         {contact.phonePlaceholder ? <em className={styles.note}> (placeholder)</em> : null}
                       </span>
                     </li>
+                    {contact.whatsapp && (
+                      <li>
+                        <Icon name="phone" size={20} />
+                        <a href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, "")}`} className={styles.link} target="_blank" rel="noopener noreferrer">
+                          {contact.whatsapp} (WhatsApp)
+                        </a>
+                      </li>
+                    )}
                     <li>
                       <Icon name="pin" size={20} />
-                      <span>
+                      <span style={{ whiteSpace: "pre-line" }}>
                         {contact.address}
                         {contact.addressPlaceholder ? <em className={styles.note}> (placeholder)</em> : null}
                       </span>

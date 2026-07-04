@@ -8,18 +8,17 @@ import { home, sampleCopy } from "@/lib/brand";
 
 export const metadata: Metadata = pageMeta({
   title: "Case Study: Private Residence",
-  description:
-    "One project — drawn, modelled, built, delivered. A single flagship project unfolds in five beats as you scroll.",
-  path: "/project-views/",
+  description: "One project — drawn, modelled, built, delivered.",
+  path: "/case-study/",
 });
 
-export default function ProjectViewsPage() {
+export default function CaseStudyPage() {
   return (
     <>
       <Header />
       <main id="main">
         <CaseStudy />
-
+        
         <CtaBand
           id="contact"
           eyebrow={home.cta.eyebrow}
