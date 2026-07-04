@@ -385,7 +385,7 @@ export const isNavGroup = (e: NavEntry): e is NavGroup => "children" in e;
 export const nav: NavEntry[] = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Sectors", href: "/projects" },
+  { label: "Capabilities", href: "/projects" },
   { label: "Approach", href: "/approach" },
   { label: "Careers", href: "/careers" },
   { label: "CSR", href: "/csr" },
@@ -573,9 +573,9 @@ export const pages = {
   },
   projects: {
     header: {
-      eyebrow: "Our work",
+      eyebrow: "Our capabilities",
       title: "Built to a higher standard",
-      lead: "The kinds of projects we deliver, across six sectors. Filter by sector to see how we work on builds like yours.",
+      lead: "The kinds of projects we are equipped to deliver across six sectors. Filter by sector to see how our capabilities align with builds like yours.",
     },
     filter: {
       label: "Filter by sector",
