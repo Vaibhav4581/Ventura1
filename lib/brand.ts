@@ -706,9 +706,9 @@ export const pages = {
         "Importantly, we invest in our people by providing them with the tools, training, and opportunities to grow and explore diverse career paths within our portfolio across DRC. Our commitment extends to the communities where we operate, as we strive to make a positive impact through sustainable and meaningful projects. By aligning our efforts with a shared purpose, we reinforce a legacy of excellence and positive change."
       ],
       images: [
-        "/imagery/crane.jpg",
-        "/imagery/steelframe.jpg",
-        "/imagery/planning.jpg"
+        "/imagery/career_why_1.png",
+        "/imagery/career_why_2.png",
+        "/imagery/career_why_3.png"
       ]
     },
     intro: {
@@ -720,39 +720,39 @@ export const pages = {
       intro: "Our professional staff powers our projects, leading and supporting teams. Whether you work in engineering, project management, or one of our corporate functions, you have the opportunity to be a part of a world-class team. Regardless of experience level or discipline, professionals at Ventura play an integral role in supporting customer goals, advancing Ventura's leadership, and delivering success one project at a time.",
       cta: { label: "Join Our Team", href: "mailto:info@venturabuilders.africa" },
       departments: [
-        { title: "Engineering", image: "/imagery/planning.jpg" },
-        { title: "Construction", image: "/imagery/steelframe.jpg" },
-        { title: "Project Management", image: "/imagery/crane.jpg" },
-        { title: "Procurement", image: "/imagery/mixeduse.jpg" },
-        { title: "Quality & Safety", image: "/imagery/team.jpg" },
-        { title: "Corporate Affairs", image: "/imagery/residence.jpg" }
+        { title: "Engineering", image: "/imagery/career_dept_eng.png" },
+        { title: "Construction", image: "/imagery/career_dept_con.png" },
+        { title: "Project Management", image: "/imagery/career_dept_pm.png" },
+        { title: "Procurement", image: "/imagery/career_dept_pro.png" },
+        { title: "Quality & Safety", image: "/imagery/career_dept_qs.png" },
+        { title: "Corporate Affairs", image: "/imagery/career_dept_corp.png" }
       ]
     },
     craft: {
       title: "Skilled Trades & Site Teams",
       intro: "Our site teams demand the technical skills required to build a new tomorrow. That's why Ventura's world-class projects are backed by the highest safety standards in the industry. We emphasize continuous learning, trade certifications, and career advancement, supporting long-term growth with a clear roadmap for the future.",
       locations: [
-        { title: "Heavy Machinery & Plant", image: "/imagery/crane.jpg" },
-        { title: "Structural & Steel", image: "/imagery/steelframe.jpg" },
-        { title: "MEP & Technical Services", image: "/imagery/mixeduse.jpg" }
+        { title: "Heavy Machinery & Plant", image: "/imagery/career_craft_heavy.png" },
+        { title: "Structural & Steel", image: "/imagery/career_craft_steel.png" },
+        { title: "MEP & Technical Services", image: "/imagery/career_craft_mep.png" }
       ]
     },
     programs: {
       title: "Additional Career Programs",
       intro: "As investment in construction surges across the DRC, we need passionate individuals ready to help us build the future. To meet this moment, Ventura offers a range of dynamic career pathways for people with different life experiences, including our Internship and Apprenticeship Programs, and New Graduates Program.",
       items: [
-        { title: "New Graduates Program", body: "For recent or upcoming graduates, we offer development opportunities that will help you launch your career in the engineering and construction industry.", image: "/imagery/planning.jpg" },
-        { title: "Internship Program", body: "Our Internship Program allows students to go beyond the classroom and gain first-hand knowledge of the construction industry, while also making a positive impact.", image: "/imagery/team.jpg" },
-        { title: "Apprenticeship Program", body: "Our Apprenticeship Program provides hands-on, on-site training alongside experienced professionals to help you build a career in the skilled construction trades.", image: "/imagery/steelframe.jpg" }
+        { title: "New Graduates Program", body: "For recent or upcoming graduates, we offer development opportunities that will help you launch your career in the engineering and construction industry.", image: "/imagery/career_prog_grad.png" },
+        { title: "Internship Program", body: "Our Internship Program allows students to go beyond the classroom and gain first-hand knowledge of the construction industry, while also making a positive impact.", image: "/imagery/career_prog_int.png" },
+        { title: "Apprenticeship Program", body: "Our Apprenticeship Program provides hands-on, on-site training alongside experienced professionals to help you build a career in the skilled construction trades.", image: "/imagery/career_engineers.png" }
       ]
     },
     life: {
       title: "Life at Ventura",
       intro: "We work every day to foster a culture that values and seeks out many perspectives, and encourages colleagues to explore, think innovatively, and grow professionally.",
       benefits: [
-        { title: "Benefits & Perks", body: "The health and well-being of our colleagues and their families is our top priority. We offer competitive compensation and professional development opportunities.", image: "/imagery/team.jpg" },
-        { title: "Diversity & Inclusion", body: "We work to ensure that every colleague feels that they belong as part of 'One Team,' and are respected and rewarded for what they bring.", image: "/imagery/planning.jpg" },
-        { title: "Safety First", body: "Nothing is more important than the safety of our colleagues. We are steadfast in our commitment to ensuring that everyone returns home safely.", image: "/imagery/steelframe.jpg" }
+        { title: "Benefits & Perks", body: "The health and well-being of our colleagues and their families is our top priority. We offer competitive compensation and professional development opportunities.", image: "/imagery/career_office.png" },
+        { title: "Diversity & Inclusion", body: "We work to ensure that every colleague feels that they belong as part of 'One Team,' and are respected and rewarded for what they bring.", image: "/imagery/career_team.png" },
+        { title: "Safety First", body: "Nothing is more important than the safety of our colleagues. We are steadfast in our commitment to ensuring that everyone returns home safely.", image: "/imagery/hero-crew.jpg" }
       ]
     },
     testimonials: {
