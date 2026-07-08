@@ -457,7 +457,7 @@ export const home = {
       "Safety-first delivery on every site",
       "Disciplined planning, costing and programming",
     ],
-    image: "/imagery/team.jpg",
+    image: "/imagery/normal_team.png",
     imageAlt: "Site team in hi-vis walking towards the works at sunrise",
   },
   services: {
@@ -514,7 +514,7 @@ export const pages = {
         "We bring experienced engineers, project managers and tradespeople together under one accountable team, taking projects from first concept through to final handover. Residential, commercial or industrial, the discipline is the same.",
         "From foundations to fit-out we hold the line on safety and quality — because the structures we put up carry people's homes, work and ambitions.",
       ],
-      image: "/imagery/planning.jpg",
+      image: "/imagery/normal_planning.png",
       imageAlt: "Construction drawings and hard hat on a site planning table",
     },
     purpose: {

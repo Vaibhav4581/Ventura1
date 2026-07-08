@@ -17,7 +17,7 @@ export const metadata: Metadata = pageMeta({
   description:
     "Ventura Builders & Developers is a construction and development company delivering safe, high-quality projects to international standards. Build with confidence.",
   path: "/about/",
-  image: "/imagery/planning.jpg",
+  image: "/imagery/normal_planning.png",
 });
 
 const crumbs = breadcrumbsJsonLd([
