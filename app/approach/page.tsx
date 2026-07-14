@@ -90,7 +90,9 @@ export default function ApproachPage() {
             <ul className={styles.checkGrid}>
               {ap.quality.points.map((item, i) => (
                 <Reveal key={item} as="li" delay={i * 50} className={styles.checkItem}>
-                  <Icon name="check" size={22} />
+                  <span className={styles.checkIcon} aria-hidden="true">
+                    <Icon name="check" size={22} />
+                  </span>
                   <span>{item}</span>
                 </Reveal>
               ))}
@@ -109,7 +111,9 @@ export default function ApproachPage() {
             <ul className={styles.checkGrid}>
               {ap.environment.points.map((item, i) => (
                 <Reveal key={item} as="li" delay={i * 50} className={styles.checkItem}>
-                  <Icon name="check" size={22} />
+                  <span className={styles.checkIcon} aria-hidden="true">
+                    <Icon name="check" size={22} />
+                  </span>
                   <span>{item}</span>
                 </Reveal>
               ))}

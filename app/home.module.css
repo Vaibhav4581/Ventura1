@@ -119,8 +119,26 @@
 }
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-5);
+  align-items: stretch;
+}
+.cardGrid > * {
+  display: flex;
+  flex-direction: column;
+}
+.cardGrid > * > * {
+  flex: 1;
+}
+@media (max-width: 900px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Whole-card link wrapper (service cards → /services/<slug>) */

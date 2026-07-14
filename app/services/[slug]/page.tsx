@@ -97,7 +97,9 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
             <ul className={styles.checkGrid}>
               {s.includes.map((item, i) => (
                 <Reveal key={item} as="li" delay={i * 50} className={styles.checkItem}>
-                  <Icon name="check" size={22} />
+                  <span className={styles.checkIcon} aria-hidden="true">
+                    <Icon name="check" size={22} />
+                  </span>
                   <span>{item}</span>
                 </Reveal>
               ))}

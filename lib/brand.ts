@@ -752,7 +752,7 @@ export const pages = {
       benefits: [
         { title: "Benefits & Perks", body: "The health and well-being of our colleagues and their families is our top priority. We offer competitive compensation and professional development opportunities.", image: "/imagery/career_office.png" },
         { title: "Diversity & Inclusion", body: "We work to ensure that every colleague feels that they belong as part of 'One Team,' and are respected and rewarded for what they bring.", image: "/imagery/career_team.png" },
-        { title: "Safety First", body: "Nothing is more important than the safety of our colleagues. We are steadfast in our commitment to ensuring that everyone returns home safely.", image: "/imagery/hero-crew.jpg" }
+        { title: "Safety First", body: "Nothing is more important than the safety of our colleagues. We are steadfast in our commitment to ensuring that everyone returns home safely.", image: "/imagery/career_safety_first.png" }
       ]
     },
     testimonials: {
